@@ -7,7 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-<!-- Firebase SDK v9 compat -->
+<!-- Cloud Sync SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
@@ -58,16 +58,16 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 .lg-err{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:8px;padding:9px 13px;font-size:13px;margin-top:10px;display:none}
 .lg-footer{margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;font-size:12px;color:#cbd5e1;text-align:center;line-height:1.7}
 
-.fs-status{position:fixed;bottom:18px;left:18px;padding:6px 12px;border-radius:16px;font-size:10px;font-weight:700;z-index:8000;display:flex;align-items:center;gap:5px;opacity:.9;transition:all .3s}
-.fs-status.connecting{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
-.fs-status.online{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
-.fs-status.offline{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
-.fs-status.syncing{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
-.fs-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.fs-status.online .fs-dot{background:#22c55e;animation:gp 2s infinite}
-.fs-status.offline .fs-dot{background:#ef4444}
-.fs-status.syncing .fs-dot{background:#f59e0b;animation:gp .8s infinite}
-.fs-status.connecting .fs-dot{background:#3b82f6;animation:gp .6s infinite}
+.cs-status{position:fixed;bottom:18px;left:18px;padding:6px 12px;border-radius:16px;font-size:10px;font-weight:700;z-index:8000;display:flex;align-items:center;gap:5px;opacity:.9;transition:all .3s}
+.cs-status.connecting{background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
+.cs-status.online{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.cs-status.offline{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.cs-status.syncing{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
+.cs-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cs-status.online .cs-dot{background:#22c55e;animation:gp 2s infinite}
+.cs-status.offline .cs-dot{background:#ef4444}
+.cs-status.syncing .cs-dot{background:#f59e0b;animation:gp .8s infinite}
+.cs-status.connecting .cs-dot{background:#3b82f6;animation:gp .6s infinite}
 
 .topbar{flex-shrink:0;background:#fff;border-bottom:1px solid #e2e8f0;padding:0;height:96px;display:flex;align-items:stretch;box-shadow:0 2px 10px rgba(15,23,42,.07);z-index:100;overflow-x:auto;overflow-y:hidden}
 .topbar::-webkit-scrollbar{height:3px}
@@ -568,7 +568,8 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
   <div class="lg-box">
     <div class="lg-logo"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg></div>
     <div class="lg-title">Photo Taking - Thailand FY2027</div>
-    <div class="lg-sub">PRB &amp; BPI Sites — v1.8.1 + Firestore</div>
+    <!-- ✅ ซ่อน platform -->
+    <div class="lg-sub">PRB &amp; BPI Sites — v1.8.1</div>
     <div class="lg-label">Username</div>
     <input id="lgUser" type="text" class="lg-inp" placeholder="username" autocomplete="username"/>
     <div class="lg-label">Password</div>
@@ -647,7 +648,11 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
   <div class="topbar">
     <div class="tb-brand">
       <div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg></div>
-      <div class="tb-title-block"><div class="tb-title" id="tbAppTitle">Photo Taking FY2027</div><div class="tb-sub" id="tbAppSub">PRB &amp; BPI · v1.8.1 + FS</div></div>
+      <div class="tb-title-block">
+        <div class="tb-title" id="tbAppTitle">Photo Taking FY2027</div>
+        <!-- ✅ ซ่อน platform -->
+        <div class="tb-sub" id="tbAppSub">PRB &amp; BPI · v1.8.1</div>
+      </div>
     </div>
     <div class="tb-section s-db" id="tbDbGroup">
       <div class="tb-section-hdr"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>DB Total</div>
@@ -690,7 +695,7 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
     </div>
     <div class="tb-controls">
       <div class="tb-db-pill"><div class="tb-dot grey" id="dbDot"></div><div><div class="tb-db-num" id="dbLbl">0</div><div class="tb-db-lbl">records</div></div></div>
-      <div class="tb-online" id="tbOnline"><div class="tb-online-dot" id="tbOnlineDot"></div><span class="tb-online-txt" id="tbOnlineTxt">Firestore</span></div>
+      <div class="tb-online" id="tbOnline"><div class="tb-online-dot" id="tbOnlineDot"></div><span class="tb-online-txt" id="tbOnlineTxt">Cloud Sync</span></div>
       <div class="tb-datetime"><div class="tb-date" id="tbDate">–</div><div class="tb-login-time" id="tbLoginTime">เข้าใช้งาน: –</div></div>
     </div>
   </div>
@@ -744,7 +749,8 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
       <div class="sb-footer">
         <div class="sb-user-card"><div class="sb-avatar" id="sbAvatar">?</div><div class="sb-user-info"><div class="sb-perm-badge admin" id="sbPermBadge"><span class="sb-perm-icon admin" id="sbPermIcon"></span><span id="sbPermText">สิทธิ์ Login by Admin</span></div><div class="sb-user-name" id="sbEmail"></div></div></div>
         <button class="sb-logout-btn" onclick="doLogout()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg><span class="sb-logout-label">ออกจากระบบ / Exit</span></button>
-        <div class="sb-version"><div class="sb-version-badge"><div style="display:flex;align-items:center;gap:5px;justify-content:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>v<span class="ver-num">1.8.1</span></span><span style="color:#94a3b8;font-size:9px;font-weight:600">· FS Bug Fixes</span></div><div class="sb-creator">Create by Ploypalin@WD-BPI</div></div></div>
+        <!-- ✅ ซ่อน platform ใน version badge -->
+        <div class="sb-version"><div class="sb-version-badge"><div style="display:flex;align-items:center;gap:5px;justify-content:center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>v<span class="ver-num">1.8.1</span></span><span style="color:#94a3b8;font-size:9px;font-weight:600">· Cloud Edition</span></div><div class="sb-creator">Create by Ploypalin@WD-BPI</div></div></div>
       </div>
     </div>
     <div class="sb-toggle-wrap" id="sbToggleWrap"><div class="sb-toggle-btn" onclick="toggleSidebar()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div></div>
@@ -800,29 +806,29 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 
       <!-- HELP -->
       <div class="tab-panel" id="tab-help">
-        <div class="page-hdr"><div class="page-hdr-icon" style="background:#ecfeff"><svg viewBox="0 0 24 24" stroke="#0891b2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="page-hdr-title">วิธีการใช้งาน</div><div class="page-hdr-sub">v1.8.1 · Firestore Bug Fixes · serverTimestamp · Auto Listener Refresh</div></div></div>
+        <div class="page-hdr"><div class="page-hdr-icon" style="background:#ecfeff"><svg viewBox="0 0 24 24" stroke="#0891b2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="page-hdr-title">วิธีการใช้งาน</div>
+        <!-- ✅ ซ่อน platform -->
+        <div class="page-hdr-sub">v1.8.1 · Cloud Sync · Auto Refresh · Local Backup</div></div></div>
         <div class="ps">
-          <div class="help-tabs"><button class="help-tab active" onclick="switchHelp('scan',this)">สแกนบัตร</button><button class="help-tab" onclick="switchHelp('checkout',this)">Check-OUT</button><button class="help-tab" onclick="switchHelp('mode',this)">Mode IN/OUT</button><button class="help-tab" onclick="switchHelp('system',this)">ระบบ</button><button class="help-tab" onclick="switchHelp('changelog',this)">v1.8.1 Changes</button></div>
-          <div class="help-pane active" id="pane-scan"><div class="hs"><div class="hs-body"><div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div>สแกนบัตรครั้งแรก = Check-IN · สแกนครั้งที่ 2 = Check-OUT · ข้อมูล sync ไป Firestore อัตโนมัติ</div></div></div></div></div>
+          <div class="help-tabs"><button class="help-tab active" onclick="switchHelp('scan',this)">สแกนบัตร</button><button class="help-tab" onclick="switchHelp('checkout',this)">Check-OUT</button><button class="help-tab" onclick="switchHelp('mode',this)">Mode IN/OUT</button><button class="help-tab" onclick="switchHelp('system',this)">ระบบ</button></div>
+          <div class="help-pane active" id="pane-scan"><div class="hs"><div class="hs-body">
+            <!-- ✅ ซ่อน platform -->
+            <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div>สแกนบัตรครั้งแรก = Check-IN · สแกนครั้งที่ 2 = Check-OUT · ข้อมูล sync ไป Cloud อัตโนมัติ</div></div>
+          </div></div></div>
           <div class="help-pane" id="pane-checkout"><div class="hs"><div class="hs-body">
-            <div class="tip-box green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><div><b>สแกนครั้งแรก</b>: Check-IN → Pending · sync Firestore</div></div>
-            <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>สแกนครั้งที่ 2 (≥10 นาที)</b>: Check-OUT → Done · sync Firestore</div></div>
-            <div class="tip-box yellow"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>Offline</b>: ถ้า internet ขาด — บันทึก localStorage ก่อน sync ภายหลัง</div></div>
+            <div class="tip-box green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><div><b>สแกนครั้งแรก</b>: Check-IN → Pending · sync Cloud</div></div>
+            <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>สแกนครั้งที่ 2 (≥10 นาที)</b>: Check-OUT → Done · sync Cloud</div></div>
+            <!-- ✅ ซ่อน platform -->
+            <div class="tip-box yellow"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>Offline</b>: ถ้า internet ขาด — บันทึก Local ก่อน sync ภายหลัง</div></div>
           </div></div></div>
           <div class="help-pane" id="pane-mode"><div class="hs"><div class="hs-body">
             <div class="tip-box green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><div><b>?mode=in</b> — Check-IN Station เท่านั้น</div></div>
             <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>?mode=out</b> — Check-OUT Station เท่านั้น</div></div>
           </div></div></div>
           <div class="help-pane" id="pane-system"><div class="hs"><div class="hs-body">
-            <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>Firestore</b>: ciLog sync cloud real-time · PRB และ BPI เห็นข้อมูลกันได้<br><b>IndexedDB</b>: empDB อยู่ใน local — ไม่ขึ้น Firestore เลย</div></div>
-            <div class="role-grid"><div class="role-card admin"><div class="role-card-title admin">Login by Admin</div><div class="role-item">สแกนบัตร / ดูรายงาน / Export</div><div class="role-item">Import / แก้ไข / ลบพนักงาน</div><div class="role-item">จัดการ User / Purge</div></div><div class="role-card user"><div class="role-card-title user">User</div><div class="role-item">สแกนบัตร / ดูรายงาน / Export</div><div class="role-item no">Import / แก้ไข / ลบ</div><div class="role-item no">จัดการ User / Purge</div></div></div>
-          </div></div></div>
-          <div class="help-pane" id="pane-changelog"><div class="hs"><div class="hs-body">
-            <div style="font-size:13px;font-weight:800;color:#0f172a;margin-bottom:8px">🔧 v1.8.1 — Firestore Bug Fixes</div>
-            <div class="tip-box" style="background:#fef2f2;border:1px solid #fecaca;color:#dc2626"><svg viewBox="0 0 24 24" style="stroke:#dc2626"><polyline points="20 6 9 17 4 12"/></svg><div><b>[Fix #1 🔴 Critical]</b> <code>deleteCIRow()</code> — แก้การส่ง docId ผิดไป Firestore ทำให้ record ไม่ถูกลบใน cloud</div></div>
-            <div class="tip-box yellow"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>[Fix #2 🟡]</b> <code>fsWrite()</code> — ใช้ <code>serverTimestamp()</code> จริงๆ แทน client ISO string ป้องกัน timestamp ผิดถ้าเวลา client คลาด</div></div>
-            <div class="tip-box yellow"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>[Fix #3 🟡]</b> <code>startFsListener()</code> + <code>scheduleListenerRefresh()</code> — auto restart listener เมื่อเที่ยงคืน ป้องกันข้อมูลหายถ้าเปิดแอพค้างข้ามคืน</div></div>
-            <div class="tip-box green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><div><b>[Fix #4 🟢]</b> <code>nukeAllData()</code> — ใช้ <code>Promise.all()</code> รอ Firestore + IDB ลบเสร็จก่อนแสดง toast success</div></div>
+            <!-- ✅ ซ่อน platform ทั้งหมด -->
+            <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>Cloud Sync</b>: ciLog sync real-time ทุก Site · PRB และ BPI เห็นข้อมูลกันได้<br><b>Local DB</b>: empDB อยู่ใน local — ไม่ขึ้น Cloud เลย</div></div>
+            <div class="role-grid"><div class="role-card admin"><div class="role-card-title admin">Login by Admin</div><div class="role-item">สแกนบัตร / ดูรายงาน / Export</div><div class="role-item">Import / แก้ไข / ลบพนักงาน</div><div class="role-item">จัดการ User / ลบข้อมูล</div></div><div class="role-card user"><div class="role-card-title user">User</div><div class="role-item">สแกนบัตร / ดูรายงาน / Export</div><div class="role-item no">Import / แก้ไข / ลบ</div><div class="role-item no">จัดการ User / ลบข้อมูล</div></div></div>
           </div></div></div>
         </div>
       </div>
@@ -882,7 +888,12 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
         <div class="page-hdr"><div class="page-hdr-icon" style="background:#eff6ff"><svg viewBox="0 0 24 24" stroke="#2563eb"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><div><div class="page-hdr-title">Import ข้อมูล</div><div class="page-hdr-sub" id="inputDataCount"></div></div><div class="page-hdr-actions"><input id="inputSearch" type="text" style="padding:6px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:'Prompt',sans-serif;font-size:12px;outline:none;width:200px" placeholder="ค้นหาชื่อ / ID..." oninput="renderInputData()"/></div></div>
         <div id="tab-admin-input-guard" class="admin-guard" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><h3>เฉพาะ Admin เท่านั้น</h3></div>
         <div id="tab-admin-input-content" style="display:none;flex:1;min-height:0;flex-direction:column;overflow:hidden">
-          <div style="flex-shrink:0;padding:10px 16px 0"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px"><div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:6px">Import ข้อมูลพนักงาน → IndexedDB (Local) <span id="importModeBadge" class="import-mode-badge append" style="margin-left:8px">✅ Append</span></div><div style="font-size:11px;color:#64748b;margin-bottom:8px">OK = Append | Cancel = Replace · ข้อมูลเก็บใน IndexedDB เท่านั้น ไม่ขึ้น Firestore</div><div style="display:flex;gap:10px;flex-wrap:wrap"><div style="border:2px dashed #bfdbfe;border-radius:10px;padding:14px 20px;cursor:pointer;background:#f0f8ff;flex:1;min-width:220px;display:flex;align-items:center;gap:12px" onclick="document.getElementById('xlsxInInput').click()" ondragover="event.preventDefault()" ondrop="hDropInput(event)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><div><div style="font-size:13px;font-weight:700;color:#1d4ed8">คลิกหรือลากไฟล์มาวาง</div><div style="font-size:11px;color:#64748b">.xlsx / .xls / .csv</div></div></div><input type="file" id="xlsxInInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="hFileInput(this.files[0])"/><div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px"><div id="sheetSecInput" style="display:none"><div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:5px">เลือก Sheet</div><div style="display:flex;gap:5px;flex-wrap:wrap" id="sheetPillsInput"></div></div><div id="impActionsInput" style="display:none;align-items:center;gap:7px;flex-wrap:wrap"><button class="btn btn-p btn-sm" onclick="importLocalInput()">Import</button><span id="impCountInput" style="font-size:12px;color:#64748b;font-weight:600"></span></div><div class="ipw" id="ipWrapInput" style="display:none"><div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:4px"><span id="ipLabelInput">กำลัง Import...</span><span id="ipTxtInput">0/0</span></div><div class="ipb"><div class="ipf" id="ipFillInput" style="width:0%"></div></div></div></div></div></div></div>
+          <div style="flex-shrink:0;padding:10px 16px 0"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px">
+            <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:6px">Import ข้อมูลพนักงาน → Local DB <span id="importModeBadge" class="import-mode-badge append" style="margin-left:8px">✅ Append</span></div>
+            <!-- ✅ ซ่อน platform -->
+            <div style="font-size:11px;color:#64748b;margin-bottom:8px">OK = Append | Cancel = Replace · ข้อมูลเก็บใน Local เท่านั้น ไม่ขึ้น Cloud</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap"><div style="border:2px dashed #bfdbfe;border-radius:10px;padding:14px 20px;cursor:pointer;background:#f0f8ff;flex:1;min-width:220px;display:flex;align-items:center;gap:12px" onclick="document.getElementById('xlsxInInput').click()" ondragover="event.preventDefault()" ondrop="hDropInput(event)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><div><div style="font-size:13px;font-weight:700;color:#1d4ed8">คลิกหรือลากไฟล์มาวาง</div><div style="font-size:11px;color:#64748b">.xlsx / .xls / .csv</div></div></div><input type="file" id="xlsxInInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="hFileInput(this.files[0])"/><div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px"><div id="sheetSecInput" style="display:none"><div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:5px">เลือก Sheet</div><div style="display:flex;gap:5px;flex-wrap:wrap" id="sheetPillsInput"></div></div><div id="impActionsInput" style="display:none;align-items:center;gap:7px;flex-wrap:wrap"><button class="btn btn-p btn-sm" onclick="importLocalInput()">Import</button><span id="impCountInput" style="font-size:12px;color:#64748b;font-weight:600"></span></div><div class="ipw" id="ipWrapInput" style="display:none"><div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;margin-bottom:4px"><span id="ipLabelInput">กำลัง Import...</span><span id="ipTxtInput">0/0</span></div><div class="ipb"><div class="ipf" id="ipFillInput" style="width:0%"></div></div></div></div></div>
+          </div></div>
           <div style="flex:1;min-height:0;overflow:auto;padding:8px 16px 12px"><table class="emp-db-tbl"><thead><tr><th>#</th><th>Emp ID</th><th>Badge ID</th><th>ชื่อ</th><th>Kanji</th><th>Location</th><th>Cloud Site</th><th>Dept</th><th>JF</th><th>Manager</th><th>HOD</th><th>ประเภท</th></tr></thead><tbody id="inputDataBody"></tbody></table><div id="inputDataMsg" style="text-align:center;color:#94a3b8;padding:32px;font-size:13px">ยังไม่มีข้อมูล</div></div>
         </div>
       </div>
@@ -890,7 +901,9 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
         <div class="page-hdr"><div class="page-hdr-icon" style="background:#fff7ed"><svg viewBox="0 0 24 24" stroke="#ea580c"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg></div><div><div class="page-hdr-title">จัดการ User</div></div></div>
         <div id="tab-admin-users-guard" class="admin-guard" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><h3>เฉพาะ Admin เท่านั้น</h3></div>
         <div class="ps" id="adminUsersBody" style="display:none">
-          <div class="acc-card"><h3>เพิ่ม / แก้ไข บัญชีผู้ใช้</h3><div class="sub">เก็บใน Local Storage</div>
+          <div class="acc-card"><h3>เพิ่ม / แก้ไข บัญชีผู้ใช้</h3>
+          <!-- ✅ ซ่อน platform -->
+          <div class="sub">เก็บใน Local Storage</div>
             <div class="form-grid" style="margin-bottom:12px">
               <div><div class="form-label">Username *</div><input id="cu-user" type="text" class="form-inp"/></div>
               <div><div class="form-label">Role</div><select id="cu-role" class="form-sel"><option value="user">User</option><option value="admin">Admin</option></select></div>
@@ -935,11 +948,13 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px"><div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:12px">พื้นที่ใช้งาน</div><div id="purgeStorageInfo"></div></div>
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px">
             <div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">เลือกประเภทที่ต้องการลบ</div>
-            <div class="purge-row" style="background:#fef2f2;border-color:#fecaca"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fca5a5,#fecaca)"><svg viewBox="0 0 24 24" stroke="#dc2626"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div><div><div class="purge-lbl">Check-IN / Check-OUT Log</div><div class="purge-sub">ลบจาก Firestore + localStorage</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-ci-count" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca">0 รายการ</span><button class="btn btn-sm" onclick="purgeCI()" style="background:linear-gradient(180deg,#dc2626,#b91c1c);color:#fff;border:1px solid #991b1b;box-shadow:0 3px 0 #7f1d1d;font-weight:700">ลบ Log</button></div></div>
-            <div class="purge-row" style="background:#fffbeb;border-color:#fde68a"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fde68a,#fef9c3)"><svg viewBox="0 0 24 24" stroke="#d97706"><circle cx="9" cy="7" r="4"/><path d="M2 21c0-4 3.13-7 7-7s7 3 7 7"/></svg></div><div><div class="purge-lbl">ฐานข้อมูลพนักงาน</div><div class="purge-sub">IndexedDB (Local เท่านั้น)</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-emp-count" style="background:#fffbeb;color:#d97706;border:1px solid #fde68a">0 คน</span><button class="btn btn-sm" onclick="purgeEmpDB()" style="background:linear-gradient(180deg,#d97706,#b45309);color:#fff;border:1px solid #92400e;box-shadow:0 3px 0 #78350f;font-weight:700">ลบ DB</button></div></div>
-            <div class="purge-row" style="background:#f8fafc;border-color:#cbd5e1;margin-bottom:0"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#cbd5e1,#e2e8f0)"><svg viewBox="0 0 24 24" stroke="#475569"><path d="M3 6h18M19 6l-1 14H6L5 6M8 6V4h8v2"/></svg></div><div><div class="purge-lbl">ลบ Log + DB</div><div class="purge-sub">Firestore Log + IndexedDB</div></div></div><div><button class="btn btn-sm" onclick="purgeCIandDB()" style="background:linear-gradient(180deg,#475569,#334155);color:#fff;border:1px solid #1e293b;box-shadow:0 3px 0 #0f172a;font-weight:700">ลบทั้งคู่</button></div></div>
+            <!-- ✅ ซ่อน platform ใน purge -->
+            <div class="purge-row" style="background:#fef2f2;border-color:#fecaca"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fca5a5,#fecaca)"><svg viewBox="0 0 24 24" stroke="#dc2626"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div><div><div class="purge-lbl">Check-IN / Check-OUT Log</div><div class="purge-sub">ลบจาก Cloud + Local Storage</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-ci-count" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca">0 รายการ</span><button class="btn btn-sm" onclick="purgeCI()" style="background:linear-gradient(180deg,#dc2626,#b91c1c);color:#fff;border:1px solid #991b1b;box-shadow:0 3px 0 #7f1d1d;font-weight:700">ลบ Log</button></div></div>
+            <div class="purge-row" style="background:#fffbeb;border-color:#fde68a"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fde68a,#fef9c3)"><svg viewBox="0 0 24 24" stroke="#d97706"><circle cx="9" cy="7" r="4"/><path d="M2 21c0-4 3.13-7 7-7s7 3 7 7"/></svg></div><div><div class="purge-lbl">ฐานข้อมูลพนักงาน</div><div class="purge-sub">Local DB เท่านั้น</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-emp-count" style="background:#fffbeb;color:#d97706;border:1px solid #fde68a">0 คน</span><button class="btn btn-sm" onclick="purgeEmpDB()" style="background:linear-gradient(180deg,#d97706,#b45309);color:#fff;border:1px solid #92400e;box-shadow:0 3px 0 #78350f;font-weight:700">ลบ DB</button></div></div>
+            <div class="purge-row" style="background:#f8fafc;border-color:#cbd5e1;margin-bottom:0"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#cbd5e1,#e2e8f0)"><svg viewBox="0 0 24 24" stroke="#475569"><path d="M3 6h18M19 6l-1 14H6L5 6M8 6V4h8v2"/></svg></div><div><div class="purge-lbl">ลบ Log + DB</div><div class="purge-sub">Cloud Log + Local DB</div></div></div><div><button class="btn btn-sm" onclick="purgeCIandDB()" style="background:linear-gradient(180deg,#475569,#334155);color:#fff;border:1px solid #1e293b;box-shadow:0 3px 0 #0f172a;font-weight:700">ลบทั้งคู่</button></div></div>
           </div>
-          <div class="danger-zone"><div class="danger-zone-title"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Danger Zone</div><div class="purge-row" style="border-color:#fecaca;background:#fef2f2;margin-bottom:0"><div><div style="font-size:12px;font-weight:600;color:#dc2626">NUKE — ลบทุกอย่าง (Firestore + Local)</div><div style="font-size:10px;color:#94a3b8;margin-top:1px">พิมพ์ยืนยัน "DELETE ALL"</div></div><button class="btn btn-sm" onclick="nukeAllData()" style="background:linear-gradient(180deg,#7f1d1d,#991b1b);color:#fff;border:1.5px solid #dc2626;box-shadow:0 3px 0 #450a0a;font-weight:800">NUKE</button></div></div>
+          <!-- ✅ ซ่อน platform ใน danger zone -->
+          <div class="danger-zone"><div class="danger-zone-title"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Danger Zone</div><div class="purge-row" style="border-color:#fecaca;background:#fef2f2;margin-bottom:0"><div><div style="font-size:12px;font-weight:600;color:#dc2626">NUKE — ลบทุกอย่าง (Cloud + Local)</div><div style="font-size:10px;color:#94a3b8;margin-top:1px">พิมพ์ยืนยัน "DELETE ALL"</div></div><button class="btn btn-sm" onclick="nukeAllData()" style="background:linear-gradient(180deg,#7f1d1d,#991b1b);color:#fff;border:1.5px solid #dc2626;box-shadow:0 3px 0 #450a0a;font-weight:800">NUKE</button></div></div>
         </div>
       </div>
 
@@ -951,65 +966,85 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 <div class="ov" id="ov" onclick="closePop()"><div class="pop" onclick="event.stopPropagation()"><div class="ppw"><div class="ppf" id="ppf" style="width:100%"></div></div><div class="pic" id="pic"><svg id="psvg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="ptt" id="ptt"></div><div class="pnm" id="pnm"></div><div class="prs" id="prs"></div><button class="btn btn-s" id="pclose" onclick="closePop()" style="width:100%;justify-content:center;display:none;font-size:15px;padding:12px">ปิด</button></div></div>
 <div class="toast" id="toast"></div>
 <div id="saveIndicator"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>บันทึกแล้ว</div>
-<div class="fs-status connecting" id="fsStatus"><span class="fs-dot"></span><span id="fsStatusTxt">กำลังเชื่อมต่อ Firestore...</span></div>
+<!-- ✅ ซ่อน platform ใน status badge -->
+<div class="cs-status connecting" id="fsStatus"><span class="cs-dot"></span><span id="fsStatusTxt">กำลังเชื่อมต่อระบบ...</span></div>
 
 <script>
 /* ════════════════════════════════════════
-   FIREBASE CONFIG + INIT
+   CLOUD SYNC CONFIG + INIT
+   (internal reference only — not shown in UI)
 ════════════════════════════════════════ */
-var firebaseConfig={apiKey:"AIzaSyAICdYzrcqBeS3ML4Orcf3Kgvn6U2Vw9AE",authDomain:"photo-taking---thailand-fy2027.firebaseapp.com",projectId:"photo-taking---thailand-fy2027",storageBucket:"photo-taking---thailand-fy2027.firebasestorage.app",messagingSenderId:"20073719160",appId:"1:20073719160:web:312aa7625320fe71da148d"};
-var fbApp=null,db=null,fsOnline=false,fsListener=null;
-var _listenerRefreshTmr=null; /* ✅ FIX #3: timer สำหรับ refresh listener ข้ามคืน */
-try{fbApp=firebase.initializeApp(firebaseConfig);db=firebase.firestore();console.log('Firebase init OK v1.8.1');}catch(e){console.warn('Firebase init fail:',e.message);}
+var _cfg={k1:"AIzaSyAICdYzrcqBeS3ML4Orcf3Kgvn6U2Vw9AE",k2:"photo-taking---thailand-fy2027.firebaseapp.com",k3:"photo-taking---thailand-fy2027",k4:"photo-taking---thailand-fy2027.firebasestorage.app",k5:"20073719160",k6:"1:20073719160:web:312aa7625320fe71da148d"};
+var _syncApp=null,db=null,fsOnline=false,fsListener=null;
+var _listenerRefreshTmr=null;
+try{
+  _syncApp=firebase.initializeApp({apiKey:_cfg.k1,authDomain:_cfg.k2,projectId:_cfg.k3,storageBucket:_cfg.k4,messagingSenderId:_cfg.k5,appId:_cfg.k6});
+  db=firebase.firestore();
+}catch(e){}
 
-/* ════ FIRESTORE STATUS ════ */
-function setFsStatus(state,msg){var el=document.getElementById('fsStatus'),txt=document.getElementById('fsStatusTxt');if(!el)return;el.className='fs-status '+state;if(txt)txt.textContent=msg;fsOnline=(state==='online');}
-function updateTopbarOnline(){var dot=document.getElementById('tbOnlineDot'),txt=document.getElementById('tbOnlineTxt'),wrap=document.getElementById('tbOnline');if(!wrap)return;if(fsOnline){wrap.style.background='#f0fdf4';wrap.style.border='1.5px solid #bbf7d0';dot.style.background='#22c55e';txt.style.color='#16a34a';txt.textContent='Firestore';}else{wrap.style.background='#fffbeb';wrap.style.border='1.5px solid #fde68a';dot.style.background='#f59e0b';txt.style.color='#d97706';txt.textContent='Offline (LS)';}}
+/* ════ SYNC STATUS ════ */
+function setFsStatus(state,msg){
+  var el=document.getElementById('fsStatus'),txt=document.getElementById('fsStatusTxt');
+  if(!el)return;
+  /* ✅ แทนที่ class cs- แทน fs- */
+  el.className='cs-status '+state;
+  if(txt)txt.textContent=msg;
+  fsOnline=(state==='online');
+}
+function updateTopbarOnline(){
+  var dot=document.getElementById('tbOnlineDot'),txt=document.getElementById('tbOnlineTxt'),wrap=document.getElementById('tbOnline');
+  if(!wrap)return;
+  if(fsOnline){
+    wrap.style.background='#f0fdf4';wrap.style.border='1.5px solid #bbf7d0';
+    dot.style.background='#22c55e';txt.style.color='#16a34a';
+    txt.textContent='Cloud Sync'; /* ✅ */
+  }else{
+    wrap.style.background='#fffbeb';wrap.style.border='1.5px solid #fde68a';
+    dot.style.background='#f59e0b';txt.style.color='#d97706';
+    txt.textContent='Offline (Local)'; /* ✅ */
+  }
+}
 
 /* ════ TODAY KEY ════ */
 function todayKey(){var d=new Date();return String(d.getFullYear())+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');}
 function docId(empId){return empId+'_'+todayKey();}
 
-/* ════════════════════════════════════════
-   FIX #2: fsWrite ใช้ serverTimestamp() จริงๆ
-════════════════════════════════════════ */
+/* ════ SYNC WRITE — FIX #2 serverTimestamp ════ */
 function fsWrite(key,record){
   if(!db)return;
   var dId=docId(record.empId||key);
-  /* ✅ ใช้ serverTimestamp() แทน client ISO string */
   var data=Object.assign({},record,{
     dateKey:todayKey(),
     updatedAt:firebase.firestore.FieldValue.serverTimestamp()
   });
   db.collection('checkin_log').doc(dId).set(data,{merge:true})
-    .then(function(){setFsStatus('online','Firestore ● Online');updateTopbarOnline();})
-    .catch(function(e){setFsStatus('offline','Offline · LS Backup');updateTopbarOnline();console.warn('FS write fail:',e.message);});
+    .then(function(){
+      setFsStatus('online','Cloud Sync ● Online'); /* ✅ */
+      updateTopbarOnline();
+    })
+    .catch(function(e){
+      setFsStatus('offline','Offline · Local Backup'); /* ✅ */
+      updateTopbarOnline();
+    });
 }
 
-/* ════════════════════════════════════════
-   FIX #1: fsDelete ใช้ empId สร้าง docId ถูกต้อง
-════════════════════════════════════════ */
+/* ════ SYNC DELETE — FIX #1 ════ */
 function fsDelete(empId){
   if(!db||!empId)return;
-  /* ✅ สร้าง docId จาก empId โดยตรง ตรงกับ fsWrite() */
   var dId=docId(empId);
-  db.collection('checkin_log').doc(dId).delete()
-    .then(function(){console.log('FS deleted:',dId);})
-    .catch(function(e){console.warn('FS delete fail:',e.message);});
+  db.collection('checkin_log').doc(dId).delete().catch(function(){});
 }
 
 function fsClearAll(){if(!db)return Promise.resolve();return db.collection('checkin_log').get().then(function(snap){var batch=db.batch();snap.forEach(function(d){batch.delete(d.ref);});return batch.commit();});}
 
-/* ════════════════════════════════════════
-   FIX #3: startFsListener + scheduleListenerRefresh
-════════════════════════════════════════ */
+/* ════ REALTIME LISTENER — FIX #3 ════ */
 function startFsListener(){
   if(!db)return;
-  setFsStatus('connecting','กำลังเชื่อมต่อ...');
+  setFsStatus('connecting','กำลังเชื่อมต่อระบบ...'); /* ✅ */
   var today=todayKey();
-  if(fsListener)fsListener(); /* หยุด listener เดิมก่อน */
+  if(fsListener)fsListener();
   fsListener=db.collection('checkin_log').where('dateKey','==',today).onSnapshot(function(snap){
-    setFsStatus('online','Firestore ● Online · '+snap.size+' records');
+    setFsStatus('online','Cloud Sync ● Online · '+snap.size+' records'); /* ✅ */
     updateTopbarOnline();
     var changed=false;
     snap.docChanges().forEach(function(change){
@@ -1030,23 +1065,21 @@ function startFsListener(){
       }
     });
     if(changed){lsSaveLocal();syncUI();renderSummary();renderHistory();}
-  },function(err){
-    setFsStatus('offline','Offline · LS Backup');updateTopbarOnline();
-    console.warn('FS listener error:',err.message);
+  },function(){
+    setFsStatus('offline','Offline · Local Backup'); /* ✅ */
+    updateTopbarOnline();
   });
 }
 
-/* ✅ FIX #3: Auto-refresh listener เมื่อเที่ยงคืน (ป้องกัน dateKey เก่าค้าง) */
+/* ════ AUTO-REFRESH LISTENER MIDNIGHT — FIX #3 ════ */
 function scheduleListenerRefresh(){
   if(_listenerRefreshTmr)clearTimeout(_listenerRefreshTmr);
   var now=new Date();
-  var midnight=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,5,0); /* 00:00:05 วันถัดไป */
+  var midnight=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,5,0);
   var ms=midnight-now;
-  console.log('Next FS listener refresh in '+(ms/1000/60).toFixed(1)+' min');
   _listenerRefreshTmr=setTimeout(function(){
-    console.log('Auto-refreshing FS listener for new dateKey:',todayKey());
-    startFsListener();       /* restart ด้วย dateKey ใหม่ */
-    scheduleListenerRefresh(); /* schedule ครั้งถัดไป */
+    startFsListener();
+    scheduleListenerRefresh();
   },ms);
 }
 
@@ -1073,10 +1106,10 @@ var _tgPendingTs=null,_tgPendingTimeNow=null,_tgPendingDateStr=null;
 
 /* ════ IDB ════ */
 function idbOpen(){return new Promise(function(res,rej){var r=indexedDB.open(IDB_NAME,IDB_VER);r.onupgradeneeded=function(e){var db=e.target.result;if(!db.objectStoreNames.contains(IDB_STORE))db.createObjectStore(IDB_STORE,{keyPath:'empId'});};r.onsuccess=function(e){res(e.target.result);};r.onerror=function(e){rej(e.target.error);};})}
-function idbSaveAll(r){return new Promise(function(res,rej){if(!idb){rej(new Error('IDB not ready'));return;}var tx=idb.transaction(IDB_STORE,'readwrite');var st=tx.objectStore(IDB_STORE);st.clear();r.forEach(function(x){st.put(x);});tx.oncomplete=function(){res(r.length);};tx.onerror=function(e){rej(e.target.error);};})}
-function idbAppend(nr){return new Promise(function(res,rej){if(!idb){rej(new Error('IDB not ready'));return;}if(!nr||!nr.length){res(0);return;}var tx=idb.transaction(IDB_STORE,'readwrite');var st=tx.objectStore(IDB_STORE);nr.forEach(function(r){st.put(r);});tx.oncomplete=function(){res(nr.length);};tx.onerror=function(e){rej(e.target.error);};})}
-function idbPut(r){return new Promise(function(res,rej){if(!idb){rej(new Error('IDB not ready'));return;}var tx=idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put(r);tx.oncomplete=function(){res();};tx.onerror=function(e){rej(e.target.error);};})}
-function idbDelete(id){return new Promise(function(res,rej){if(!idb){rej(new Error('IDB not ready'));return;}var tx=idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).delete(id);tx.oncomplete=function(){res();};tx.onerror=function(e){rej(e.target.error);};})}
+function idbSaveAll(r){return new Promise(function(res,rej){if(!idb){rej(new Error('DB not ready'));return;}var tx=idb.transaction(IDB_STORE,'readwrite');var st=tx.objectStore(IDB_STORE);st.clear();r.forEach(function(x){st.put(x);});tx.oncomplete=function(){res(r.length);};tx.onerror=function(e){rej(e.target.error);};})}
+function idbAppend(nr){return new Promise(function(res,rej){if(!idb){rej(new Error('DB not ready'));return;}if(!nr||!nr.length){res(0);return;}var tx=idb.transaction(IDB_STORE,'readwrite');var st=tx.objectStore(IDB_STORE);nr.forEach(function(r){st.put(r);});tx.oncomplete=function(){res(nr.length);};tx.onerror=function(e){rej(e.target.error);};})}
+function idbPut(r){return new Promise(function(res,rej){if(!idb){rej(new Error('DB not ready'));return;}var tx=idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).put(r);tx.oncomplete=function(){res();};tx.onerror=function(e){rej(e.target.error);};})}
+function idbDelete(id){return new Promise(function(res,rej){if(!idb){rej(new Error('DB not ready'));return;}var tx=idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).delete(id);tx.oncomplete=function(){res();};tx.onerror=function(e){rej(e.target.error);};})}
 function idbLoadAll(){return new Promise(function(res,rej){if(!idb){res([]);return;}var tx=idb.transaction(IDB_STORE,'readonly');var req=tx.objectStore(IDB_STORE).getAll();req.onsuccess=function(e){res(e.target.result||[]);};req.onerror=function(e){rej(e.target.error);};})}
 function idbClear(){return new Promise(function(res,rej){if(!idb){res();return;}var tx=idb.transaction(IDB_STORE,'readwrite');tx.objectStore(IDB_STORE).clear();tx.oncomplete=function(){res();};tx.onerror=function(e){rej(e.target.error);};})}
 function idbCount(){return new Promise(function(res){if(!idb){res(0);return;}var tx=idb.transaction(IDB_STORE,'readonly');var req=tx.objectStore(IDB_STORE).count();req.onsuccess=function(e){res(e.target.result||0);};req.onerror=function(){res(0);};})}
@@ -1125,7 +1158,7 @@ function doLogin(){
   idbLoadAll().then(function(r){empDB=r;rebuildEmpMaps();btn.disabled=false;btn.textContent='เข้าสู่ระบบ';launchApp();}).catch(function(){empDB=[];rebuildEmpMaps();btn.disabled=false;btn.textContent='เข้าสู่ระบบ';launchApp();});
 }
 function setLgErr(m){var e=document.getElementById('lgErr');e.textContent='⚠ '+m;e.style.display='block';}
-function doLogout(){if(!confirm('ต้องการออกจากระบบ?'))return;if(fsListener){fsListener();fsListener=null;}if(_listenerRefreshTmr){clearTimeout(_listenerRefreshTmr);_listenerRefreshTmr=null;}curUser=null;isAdm=false;empDB=[];rebuildEmpMaps();document.getElementById('loginScreen').style.display='flex';document.getElementById('appShell').style.display='none';setFsStatus('connecting','กำลังเชื่อมต่อ...');}
+function doLogout(){if(!confirm('ต้องการออกจากระบบ?'))return;if(fsListener){fsListener();fsListener=null;}if(_listenerRefreshTmr){clearTimeout(_listenerRefreshTmr);_listenerRefreshTmr=null;}curUser=null;isAdm=false;empDB=[];rebuildEmpMaps();document.getElementById('loginScreen').style.display='flex';document.getElementById('appShell').style.display='none';setFsStatus('connecting','กำลังเชื่อมต่อระบบ...');}/* ✅ */
 
 /* ════ LAUNCH ════ */
 function launchApp(){
@@ -1142,7 +1175,6 @@ function launchApp(){
   if(isAdm){document.getElementById('sbp-admin').style.display='';document.getElementById('adminSbSec').style.display='';document.getElementById('admin-sub').style.removeProperty('display');}
   else{document.getElementById('sbp-admin').style.display='none';document.getElementById('adminSbSec').style.display='none';document.getElementById('admin-sub').style.display='none';}
   applyAppMode();syncUI();warmVoices();
-  /* ✅ FIX #3: เริ่ม listener + schedule refresh ข้ามคืน */
   startFsListener();
   scheduleListenerRefresh();
   setTimeout(function(){document.getElementById('scanInput').focus();},200);
@@ -1299,32 +1331,26 @@ function renderDelSearch(){if(!isAdm)return;var q=(document.getElementById('delS
 function deleteEmployee(empId){if(!isAdm)return;var emp=empDB.find(function(e){return String(e.empId).trim().toUpperCase()===empId.toUpperCase();});if(!emp)return;if(!confirm('ยืนยันลบ: '+emp.name+'?'))return;idbDelete(emp.empId).then(function(){empDB=empDB.filter(function(e){return String(e.empId).trim().toUpperCase()!==empId.toUpperCase();});rebuildEmpMaps();syncUI();renderDelSearch();showSaveIndicator();showToast('ok','ลบ '+emp.name+' สำเร็จ');}).catch(function(e){showToast('err',e.message);});}
 
 /* ════ PURGE ════ */
-function refreshPurgeStats(){if(!isAdm)return;var n=Object.keys(ciLog).length;var ci=document.getElementById('purge-ci-count');if(ci)ci.textContent=n.toLocaleString()+' รายการ';idbCount().then(function(cnt){var ep=document.getElementById('purge-emp-count');if(ep)ep.textContent=cnt.toLocaleString()+' คน';var info=document.getElementById('purgeStorageInfo');if(!info)return;var keys=[{key:LS_CI,label:'Check-IN/OUT Log (LS)',color:'#dc2626'},{key:LS_USERS,label:'User Accounts',color:'#ea580c'},{key:LS_CW,label:'CW Config',color:'#7c3aed'}];var rows=keys.map(function(k){var raw='';try{raw=localStorage.getItem(k.key)||'';}catch(e){}var kb=(raw.length*2/1024).toFixed(1);var pct=Math.min(100,Math.round(raw.length*2/(5*1024*1024)*100));return'<div class="stor-row"><div style="width:7px;height:7px;border-radius:50%;background:'+k.color+';flex-shrink:0"></div><span style="font-size:11px;font-weight:600;color:#475569;width:150px;flex-shrink:0">'+k.label+'</span><div class="stor-bar-wrap"><div class="stor-bar-fill" style="width:'+pct+'%;background:'+k.color+'"></div></div><span class="stor-kb" style="color:'+k.color+'">'+kb+' KB</span></div>';}).join('');info.innerHTML='<div class="stor-row"><div style="width:7px;height:7px;border-radius:50%;background:#2563eb;flex-shrink:0"></div><span style="font-size:11px;font-weight:600;color:#475569;width:150px;flex-shrink:0">Employee DB (IDB)</span><div class="stor-bar-wrap"><div class="stor-bar-fill" style="width:30%;background:#2563eb"></div></div><span class="stor-kb" style="color:#2563eb">'+cnt+' records</span></div>'+rows;});}
+function refreshPurgeStats(){if(!isAdm)return;var n=Object.keys(ciLog).length;var ci=document.getElementById('purge-ci-count');if(ci)ci.textContent=n.toLocaleString()+' รายการ';idbCount().then(function(cnt){var ep=document.getElementById('purge-emp-count');if(ep)ep.textContent=cnt.toLocaleString()+' คน';var info=document.getElementById('purgeStorageInfo');if(!info)return;var keys=[{key:LS_CI,label:'Check-IN/OUT Log (Local)',color:'#dc2626'},{key:LS_USERS,label:'User Accounts',color:'#ea580c'},{key:LS_CW,label:'CW Config',color:'#7c3aed'}];var rows=keys.map(function(k){var raw='';try{raw=localStorage.getItem(k.key)||'';}catch(e){}var kb=(raw.length*2/1024).toFixed(1);var pct=Math.min(100,Math.round(raw.length*2/(5*1024*1024)*100));return'<div class="stor-row"><div style="width:7px;height:7px;border-radius:50%;background:'+k.color+';flex-shrink:0"></div><span style="font-size:11px;font-weight:600;color:#475569;width:150px;flex-shrink:0">'+k.label+'</span><div class="stor-bar-wrap"><div class="stor-bar-fill" style="width:'+pct+'%;background:'+k.color+'"></div></div><span class="stor-kb" style="color:'+k.color+'">'+kb+' KB</span></div>';}).join('');info.innerHTML='<div class="stor-row"><div style="width:7px;height:7px;border-radius:50%;background:#2563eb;flex-shrink:0"></div><span style="font-size:11px;font-weight:600;color:#475569;width:150px;flex-shrink:0">Employee DB (Local)</span><div class="stor-bar-wrap"><div class="stor-bar-fill" style="width:30%;background:#2563eb"></div></div><span class="stor-kb" style="color:#2563eb">'+cnt+' records</span></div>'+rows;});}
 
-function purgeCI(){if(!isAdm)return;var n=Object.keys(ciLog).length;if(!n){showToast('info','ไม่มี Log');return;}if(!confirm('ลบ Log '+n+' รายการ? (Firestore + localStorage)'))return;fsClearAll().then(function(){ciLog={};lsSaveLocal();syncUI();renderSummary();refreshPurgeStats();showToast('ok','ลบ Log สำเร็จ (FS + LS)');}).catch(function(){ciLog={};lsSaveLocal();syncUI();renderSummary();refreshPurgeStats();showToast('warn','ลบ LS สำเร็จ / FS อาจยังค้าง');});}
+function purgeCI(){if(!isAdm)return;var n=Object.keys(ciLog).length;if(!n){showToast('info','ไม่มี Log');return;}if(!confirm('ลบ Log '+n+' รายการ? (Cloud + Local)'))return;fsClearAll().then(function(){ciLog={};lsSaveLocal();syncUI();renderSummary();refreshPurgeStats();showToast('ok','ลบ Log สำเร็จ');}).catch(function(){ciLog={};lsSaveLocal();syncUI();renderSummary();refreshPurgeStats();showToast('warn','ลบ Local สำเร็จ / Cloud อาจยังค้าง');});}
 function purgeEmpDB(){if(!isAdm)return;var n=empDB.length;if(!n){showToast('info','ไม่มีข้อมูล');return;}if(!confirm('ลบ DB '+n+' คน?'))return;idbClear().then(function(){empDB=[];rebuildEmpMaps();syncUI();renderSummary();setDbStatus(false,'0');refreshPurgeStats();showToast('ok','ลบ DB สำเร็จ');}).catch(function(e){showToast('err',e.message);});}
 function purgeCIandDB(){if(!isAdm)return;if(!confirm('ลบ Log + DB?'))return;fsClearAll().then(function(){}).catch(function(){});idbClear().then(function(){ciLog={};empDB=[];rebuildEmpMaps();lsSaveLocal();syncUI();renderSummary();setDbStatus(false,'0');refreshPurgeStats();showToast('ok','ลบ Log + DB สำเร็จ');}).catch(function(e){showToast('err',e.message);});}
 
-/* ════════════════════════════════════════
-   FIX #4: nukeAllData ใช้ Promise.all รอทั้งคู่เสร็จก่อน toast
-════════════════════════════════════════ */
+/* ════ NUKE — FIX #4 Promise.all ════ */
 function nukeAllData(){
   if(!isAdm)return;
   if(!confirm('NUKE ล้างทุกอย่าง?'))return;
   var code=prompt('พิมพ์ "DELETE ALL":');
   if(code!=='DELETE ALL'){showToast('warn','ยกเลิก');return;}
   setFsStatus('syncing','กำลังลบข้อมูล...');
-  /* ✅ รอทั้ง Firestore + IDB เสร็จก่อนแสดง toast */
   Promise.all([
-    fsClearAll().catch(function(e){console.warn('FS NUKE fail:',e.message);}),
-    idbClear().catch(function(e){console.warn('IDB NUKE fail:',e.message);})
+    fsClearAll().catch(function(){}),
+    idbClear().catch(function(){})
   ]).then(function(){
-    ciLog={};empDB=[];
-    rebuildEmpMaps();
-    lsSaveLocal();
-    lsSet(LS_USERS,DEFAULT_USERS);
-    syncUI();renderSummary();
-    setDbStatus(false,'0');
+    ciLog={};empDB=[];rebuildEmpMaps();
+    lsSaveLocal();lsSet(LS_USERS,DEFAULT_USERS);
+    syncUI();renderSummary();setDbStatus(false,'0');
     if(document.getElementById('tab-admin-purge').classList.contains('active'))refreshPurgeStats();
     showToast('ok','NUKE สำเร็จ — ล้างข้อมูลทั้งหมดแล้ว');
   });
@@ -1335,7 +1361,7 @@ function hDropInput(e){e.preventDefault();if(e.dataTransfer.files[0])hFileInput(
 function hFileInput(file){if(!file)return;var r=new FileReader();r.onload=function(ev){rawWBInput=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});showSheetsInput(rawWBInput.SheetNames);};r.readAsArrayBuffer(file);}
 function showSheetsInput(names){var sec=document.getElementById('sheetSecInput');sec.style.display='';var pills=document.getElementById('sheetPillsInput');pills.innerHTML='';names.forEach(function(n){var b=document.createElement('button');b.className='btn btn-s btn-sm';b.style.cssText='padding:3px 10px;font-size:11px;margin:2px';b.textContent=n;b.onclick=function(){pills.querySelectorAll('button').forEach(function(x){x.style.background='';x.style.color='';});b.style.background='linear-gradient(180deg,#dbeafe,#bfdbfe)';b.style.color='#1d4ed8';loadSheetInput(n);};pills.appendChild(b);});pills.querySelectorAll('button')[0].click();}
 function loadSheetInput(name){var rows=XLSX.utils.sheet_to_json(rawWBInput.Sheets[name],{defval:''});pendRowsInput=rows;document.getElementById('impActionsInput').style.display='flex';document.getElementById('impCountInput').textContent='พบ '+rows.length.toLocaleString()+' แถว (DB: '+empDB.length.toLocaleString()+')';}
-function importLocalInput(){if(!pendRowsInput.length){showToast('err','ไม่มีข้อมูล');return;}if(!idbReady){showToast('err','IndexedDB ยังไม่พร้อม');return;}var normed=pendRowsInput.map(norm).filter(function(r){return r.empId||r.badgeId;});if(!normed.length){showToast('err','ไม่พบ ID');return;}var isAppend=confirm('📥 OK = Append | Cancel = Replace\n\nไฟล์: '+normed.length+' แถว | DB: '+empDB.length+' คน\n\n⚠ ข้อมูลเก็บใน IndexedDB (Local) เท่านั้น — ไม่ขึ้น Firestore');var badge=document.getElementById('importModeBadge');if(badge){badge.className='import-mode-badge '+(isAppend?'append':'replace');badge.textContent=isAppend?'✅ Append':'🔄 Replace';}var iw=document.getElementById('ipWrapInput');iw.style.display='flex';var pf=document.getElementById('ipFillInput');var step=0,total=20;var iv=setInterval(function(){step++;pf.style.width=Math.round(step/total*80)+'%';document.getElementById('ipTxtInput').textContent=Math.round(step/total*80)+'%';if(step>=total){clearInterval(iv);pf.style.width='90%';if(!isAppend){idbSaveAll(normed).then(function(){return idbLoadAll();}).then(function(all){empDB=all;rebuildEmpMaps();pf.style.width='100%';setTimeout(function(){iw.style.display='none';syncUI();renderSummary();renderInputData();showToast('ok','Replace: '+empDB.length+' คน → IndexedDB');},400);}).catch(function(err){iw.style.display='none';showToast('err',err.message);});}else{var eIds={},eBids={};empDB.forEach(function(e){if(e.empId)eIds[e.empId.toUpperCase()]=true;if(e.badgeId)eBids[normBadge(e.badgeId).toUpperCase()]=true;});var toAdd=[];normed.forEach(function(r){var eid=(r.empId||'').toUpperCase(),bid=normBadge(r.badgeId||'').toUpperCase();if(eid&&eIds[eid])return;if(bid&&eBids[bid])return;toAdd.push(r);});if(!toAdd.length){iw.style.display='none';showToast('warn','ไม่มีข้อมูลใหม่');return;}idbAppend(toAdd).then(function(){return idbLoadAll();}).then(function(all){empDB=all;rebuildEmpMaps();pf.style.width='100%';setTimeout(function(){iw.style.display='none';syncUI();renderSummary();renderInputData();showToast('ok','Append +'+toAdd.length+' คน → IndexedDB (รวม '+empDB.length+')');},400);}).catch(function(err){iw.style.display='none';showToast('err',err.message);});}}},60);}
+function importLocalInput(){if(!pendRowsInput.length){showToast('err','ไม่มีข้อมูล');return;}if(!idbReady){showToast('err','Local DB ยังไม่พร้อม');return;}var normed=pendRowsInput.map(norm).filter(function(r){return r.empId||r.badgeId;});if(!normed.length){showToast('err','ไม่พบ ID');return;}var isAppend=confirm('📥 OK = Append | Cancel = Replace\n\nไฟล์: '+normed.length+' แถว | DB: '+empDB.length+' คน\n\n⚠ ข้อมูลเก็บใน Local เท่านั้น — ไม่ขึ้น Cloud');var badge=document.getElementById('importModeBadge');if(badge){badge.className='import-mode-badge '+(isAppend?'append':'replace');badge.textContent=isAppend?'✅ Append':'🔄 Replace';}var iw=document.getElementById('ipWrapInput');iw.style.display='flex';var pf=document.getElementById('ipFillInput');var step=0,total=20;var iv=setInterval(function(){step++;pf.style.width=Math.round(step/total*80)+'%';document.getElementById('ipTxtInput').textContent=Math.round(step/total*80)+'%';if(step>=total){clearInterval(iv);pf.style.width='90%';if(!isAppend){idbSaveAll(normed).then(function(){return idbLoadAll();}).then(function(all){empDB=all;rebuildEmpMaps();pf.style.width='100%';setTimeout(function(){iw.style.display='none';syncUI();renderSummary();renderInputData();showToast('ok','Replace: '+empDB.length+' คน → Local DB');},400);}).catch(function(err){iw.style.display='none';showToast('err',err.message);});}else{var eIds={},eBids={};empDB.forEach(function(e){if(e.empId)eIds[e.empId.toUpperCase()]=true;if(e.badgeId)eBids[normBadge(e.badgeId).toUpperCase()]=true;});var toAdd=[];normed.forEach(function(r){var eid=(r.empId||'').toUpperCase(),bid=normBadge(r.badgeId||'').toUpperCase();if(eid&&eIds[eid])return;if(bid&&eBids[bid])return;toAdd.push(r);});if(!toAdd.length){iw.style.display='none';showToast('warn','ไม่มีข้อมูลใหม่');return;}idbAppend(toAdd).then(function(){return idbLoadAll();}).then(function(all){empDB=all;rebuildEmpMaps();pf.style.width='100%';setTimeout(function(){iw.style.display='none';syncUI();renderSummary();renderInputData();showToast('ok','Append +'+toAdd.length+' คน → Local DB (รวม '+empDB.length+')');},400);}).catch(function(err){iw.style.display='none';showToast('err',err.message);});}}},60);}
 function renderInputData(){if(!isAdm)return;var q=(document.getElementById('inputSearch')||{value:''}).value.toLowerCase();var data=q?empDB.filter(function(e){return String(e.empId||'').includes(q)||String(e.name||'').toLowerCase().includes(q)||(e.badgeId||'').includes(q);}).slice(0,200):empDB.slice(0,500);var cnt=document.getElementById('inputDataCount');if(cnt)cnt.textContent='DB: '+empDB.length.toLocaleString()+' คน';var msg=document.getElementById('inputDataMsg'),tb=document.getElementById('inputDataBody');if(!data.length){if(tb)tb.innerHTML='';if(msg)msg.style.display='block';return;}if(msg)msg.style.display='none';if(tb)tb.innerHTML=data.map(function(e,i){var sv=siteLabel(e),cw=isCW(e);var sd=siteDisp(sv);var scol=sv==='PRB'?'color:#2563eb':sv==='BPI035'?'color:#a21caf':'color:#7c3aed';var wt=cw?'<span style="background:#fff8f0;color:#ea580c;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;border:1px solid #fed7aa">CW</span>':'<span style="background:#eff6ff;color:#2563eb;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;border:1px solid #bfdbfe">EMP</span>';return'<tr><td style="color:#94a3b8">'+(i+1)+'</td><td style="font-family:monospace;color:#2563eb">'+escH(e.empId)+'</td><td style="font-family:monospace">'+escH(e.badgeId||'')+'</td><td style="font-weight:600">'+escH(e.name)+'</td><td>'+escH(e.kanji||'')+'</td><td>'+escH(e.loc||'')+'</td><td style="'+scol+';font-weight:700">'+sd+'</td><td>'+escH(e.dept||'')+'</td><td>'+escH(e.jf||'')+'</td><td>'+escH((e.mgr||'').split('(')[0].trim())+'</td><td>'+escH((e.hod||'').split('(')[0].trim())+'</td><td>'+wt+'</td></tr>';}).join('');}
 
 /* ════ STATS CI ════ */
@@ -1347,9 +1373,7 @@ function sPBar(l,d,t,c){var p=t>0?Math.round(d/t*100):0;return'<div class="pbr">
 function clearDateFilter(){var df=document.getElementById('histDateFrom'),dt=document.getElementById('histDateTo');if(df)df.value='';if(dt)dt.value='';renderHistory();}
 function getDateFilterRows(arr){var dfVal=(document.getElementById('histDateFrom')||{}).value||'',dtVal=(document.getElementById('histDateTo')||{}).value||'';var info=document.getElementById('histDateInfo');if(!dfVal&&!dtVal){if(info)info.textContent='';return arr;}var fromD=dfVal?new Date(dfVal+' 00:00:00'):null,toD=dtVal?new Date(dtVal+' 23:59:59'):null;var filtered=arr.filter(function(r){if(!r.ts)return true;var d=new Date(r.ts);if(fromD&&d<fromD)return false;if(toD&&d>toD)return false;return true;});if(info){var parts=[];if(dfVal)parts.push('ตั้งแต่ '+dfVal);if(dtVal)parts.push('ถึง '+dtVal);info.textContent=parts.join(' ')+(filtered.length?' — '+filtered.length+' รายการ':'');}return filtered;}
 
-/* ════════════════════════════════════════
-   FIX #1 (Applied): deleteCIRow ใช้ empId สร้าง docId ถูกต้อง
-════════════════════════════════════════ */
+/* ════ DELETE CI ROW — FIX #1 ════ */
 function deleteCIRow(key){
   if(!isAdm)return;
   if(!ciLog[key])return;
@@ -1358,7 +1382,6 @@ function deleteCIRow(key){
   var empId=rec&&rec.empId;
   delete ciLog[key];
   lsSaveLocal();
-  /* ✅ ส่ง empId ให้ fsDelete สร้าง docId ที่ถูกต้อง */
   if(empId)fsDelete(empId);
   syncUI();renderHistory();renderSummary();
   showToast('ok','ลบสำเร็จ');
