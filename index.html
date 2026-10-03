@@ -349,7 +349,7 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 .jf-tbl tr.jf-row{cursor:pointer;transition:background .12s}
 .jf-tbl tr.jf-row:hover td{background:#f0f8ff}
 .jf-name-cell{font-weight:600;display:flex;align-items:center;gap:4px}
-.jf-drill-hint{font-size:8px;color:#93c5fd;margin-left:3px;opacity:0;transition:opacity .15s}
+.jf-drill-hint{font-size:8px;color:#93c5fd;margin-left:3px;opacity:0;transition:opacity .15px}
 .jf-tbl tr.jf-row:hover .jf-drill-hint{opacity:1}
 .emp-list-panel{display:none;border-top:1px solid #e2e8f0;background:#f8fbff}
 .emp-list-panel.open{display:block}.emp-list-panel.cw-panel{background:#fff8f3}
@@ -558,6 +558,10 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 .dtf-quick-btn{padding:4px 10px;border-radius:6px;border:1.5px solid #c4b5fd;background:#f5f3ff;color:#6d28d9;font-family:'Prompt',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:.12s;white-space:nowrap}
 .dtf-quick-btn:hover{background:#ede9fe;border-color:#7c3aed}
 .dtf-quick-btn.active{background:linear-gradient(180deg,#7c3aed,#6d28d9);color:#fff;border-color:#5b21b6;box-shadow:0 2px 0 #4c1d95}
+/* ══ Mark Done button ══ */
+.btn-mark-done{padding:4px 10px;border-radius:7px;border:1.5px solid #bbf7d0;background:linear-gradient(180deg,#f0fdf4,#dcfce7);color:#15803d;font-family:'Prompt',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:all .12s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.btn-mark-done:hover{background:linear-gradient(180deg,#22c55e,#16a34a);color:#fff;border-color:#15803d;transform:translateY(-1px);box-shadow:0 3px 0 #15803d}
+.btn-mark-done:active{transform:translateY(1px);box-shadow:none}
 @media print{
   body{overflow:visible!important;height:auto!important}
   .sidebar,.topbar,#loginScreen,.fs-status,#saveIndicator,.toast,.tg-overlay,.ov,.newhire-ov,.edit-modal-overlay{display:none!important}
@@ -574,7 +578,7 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
   <div class="lg-box">
     <div class="lg-logo"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg></div>
     <div class="lg-title">Photo Taking - Thailand FY2027</div>
-    <div class="lg-sub">PRB &amp; BPI Sites — v1.8.9 + Date-Time Filter</div>
+    <div class="lg-sub">PRB &amp; BPI Sites — v1.9.1 + Mark Done</div>
     <div class="lg-label">Username</div>
     <input id="lgUser" type="text" class="lg-inp" placeholder="username" autocomplete="username"/>
     <div class="lg-label">Password</div>
@@ -648,7 +652,7 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
   <div class="topbar">
     <div class="tb-brand">
       <div class="tb-logo"><svg viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg></div>
-      <div class="tb-title-block"><div class="tb-title" id="tbAppTitle">Photo Taking FY2027</div><div class="tb-sub" id="tbAppSub">PRB &amp; BPI · v1.8.9 + Date-Time Filter</div></div>
+      <div class="tb-title-block"><div class="tb-title" id="tbAppTitle">Photo Taking FY2027</div><div class="tb-sub" id="tbAppSub">PRB &amp; BPI · v1.9.1 + Mark Done</div></div>
     </div>
     <div class="tb-section s-db" id="tbDbGroup">
       <div class="tb-section-hdr"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>DB Total</div>
@@ -700,20 +704,15 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
     <div class="sidebar" id="sidebar">
       <div class="sb-nav">
         <div class="sb-sec-lbl">หน้าหลัก</div>
-
-        <!-- ══ SCAN ══ -->
         <button class="sb-btn type-direct active" id="sbp-scan" onclick="goTab('scan')">
           <div class="sb-btn-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M17 14v3h3"/></svg></div>
           <span class="sb-btn-label">แสกนบัตร / Scan badge</span>
         </button>
-
-        <!-- ══ [NEW] DATE-TIME FILTER ══ -->
         <button class="sb-btn type-direct" id="sbp-dtfilter" onclick="goTab('dtfilter')"
           style="background:linear-gradient(180deg,#7c3aed,#6d28d9);border-color:#5b21b6;box-shadow:0 4px 0 #4c1d95,0 2px 8px rgba(124,58,237,.3)">
           <div class="sb-btn-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
           <span class="sb-btn-label" style="font-size:10.5px;line-height:1.25">กรองวันที่/เวลา<br>/Date-Time Filter</span>
         </button>
-
         <div class="sb-sec-lbl" style="margin-top:6px">รายงาน</div>
         <button class="sb-btn type-parent" id="sbp-sum" onclick="toggleSbSub('sum-sub','sbp-sum')">
           <div class="sb-btn-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
@@ -792,8 +791,8 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
         <div class="sb-version"><div class="sb-version-badge">
           <div style="display:flex;align-items:center;gap:5px;justify-content:center">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>v<span class="ver-num">1.8.9</span></span>
-            <span style="color:#475569;font-size:9px;font-weight:600">· Date-Time Filter</span>
+            <span>v<span class="ver-num">1.9.1</span></span>
+            <span style="color:#475569;font-size:9px;font-weight:600">· Mark Done</span>
           </div>
           <div class="sb-creator">Create by Ploypalin@WD-BPI</div>
         </div></div>
@@ -840,7 +839,7 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
         </div>
       </div>
 
-      <!-- ══ [NEW] TAB: DATE-TIME FILTER ══ -->
+      <!-- ══ TAB: DATE-TIME FILTER ══ -->
       <div class="tab-panel" id="tab-dtfilter">
         <div class="page-hdr">
           <div class="page-hdr-icon" style="background:#f5f3ff">
@@ -862,10 +861,7 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
             <button class="btn btn-g btn-sm" onclick="dtfExportCSV()">Export CSV</button>
           </div>
         </div>
-
-        <!-- Filter Bar -->
         <div class="dtf-filter-bar">
-          <!-- Date -->
           <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             <span style="font-size:11px;font-weight:700;color:#64748b;white-space:nowrap">วันที่:</span>
@@ -873,7 +869,6 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
           <input type="date" id="dtf-from-date" class="hist-date-inp" style="border-color:#c4b5fd"/>
           <span style="font-size:11px;color:#94a3b8;flex-shrink:0">–</span>
           <input type="date" id="dtf-to-date" class="hist-date-inp" style="border-color:#c4b5fd"/>
-          <!-- Time -->
           <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;margin-left:6px">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span style="font-size:11px;font-weight:700;color:#64748b;white-space:nowrap">เวลา:</span>
@@ -881,14 +876,12 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
           <input type="time" id="dtf-from-time" class="hist-date-inp" style="border-color:#c4b5fd" value="00:00"/>
           <span style="font-size:11px;color:#94a3b8;flex-shrink:0">–</span>
           <input type="time" id="dtf-to-time" class="hist-date-inp" style="border-color:#c4b5fd" value="23:59"/>
-          <!-- Quick -->
           <div style="display:flex;gap:4px;flex-shrink:0;margin-left:4px">
             <button class="dtf-quick-btn" id="dtfq-today" onclick="dtfSetQuick('today')">วันนี้</button>
             <button class="dtf-quick-btn" id="dtfq-yesterday" onclick="dtfSetQuick('yesterday')">เมื่อวาน</button>
             <button class="dtf-quick-btn" id="dtfq-week" onclick="dtfSetQuick('week')">7 วัน</button>
             <button class="dtf-quick-btn" id="dtfq-month" onclick="dtfSetQuick('month')">30 วัน</button>
           </div>
-          <!-- Site / Type / Status -->
           <select id="dtf-site" class="hist-sel" style="border-color:#c4b5fd;margin-left:4px">
             <option value="all">ทุก Site</option>
             <option value="PRB">PRB WD</option>
@@ -906,95 +899,36 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
             <option value="OUT">Done (OUT)</option>
           </select>
         </div>
-
-        <!-- KPI Cards -->
         <div class="dtf-kpi-wrap" id="dtf-kpi-row">
-          <div class="dtf-kpi-card" style="border-top:3px solid #7c3aed">
-            <div class="dtf-kpi-lbl">ช่วงที่เลือก</div>
-            <div class="dtf-kpi-val" style="color:#7c3aed" id="dtf-kpi-total">0</div>
-            <div class="dtf-kpi-sub">รายการทั้งหมด</div>
-          </div>
-          <div class="dtf-kpi-card" style="border-top:3px solid #16a34a">
-            <div class="dtf-kpi-lbl">Check-IN</div>
-            <div class="dtf-kpi-val" style="color:#16a34a" id="dtf-kpi-in">0</div>
-            <div class="dtf-kpi-sub">Pending</div>
-          </div>
-          <div class="dtf-kpi-card" style="border-top:3px solid #065f46">
-            <div class="dtf-kpi-lbl">Check-OUT</div>
-            <div class="dtf-kpi-val" style="color:#065f46" id="dtf-kpi-out">0</div>
-            <div class="dtf-kpi-sub">Done</div>
-          </div>
-          <div class="dtf-kpi-card" style="border-top:3px solid #2563eb">
-            <div class="dtf-kpi-lbl">PRB WD</div>
-            <div class="dtf-kpi-val" style="color:#2563eb" id="dtf-kpi-prb">0</div>
-            <div class="dtf-kpi-sub">คน</div>
-          </div>
-          <div class="dtf-kpi-card" style="border-top:3px solid #7c3aed">
-            <div class="dtf-kpi-lbl">BPI HDD</div>
-            <div class="dtf-kpi-val" style="color:#7c3aed" id="dtf-kpi-bpi034">0</div>
-            <div class="dtf-kpi-sub">คน</div>
-          </div>
-          <div class="dtf-kpi-card" style="border-top:3px solid #a21caf">
-            <div class="dtf-kpi-lbl">BPI THO</div>
-            <div class="dtf-kpi-val" style="color:#a21caf" id="dtf-kpi-bpi035">0</div>
-            <div class="dtf-kpi-sub">คน</div>
-          </div>
-          <div class="dtf-kpi-card" style="border-top:3px solid #ea580c">
-            <div class="dtf-kpi-lbl">CW</div>
-            <div class="dtf-kpi-val" style="color:#ea580c" id="dtf-kpi-cw">0</div>
-            <div class="dtf-kpi-sub">คน</div>
-          </div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #7c3aed"><div class="dtf-kpi-lbl">ช่วงที่เลือก</div><div class="dtf-kpi-val" style="color:#7c3aed" id="dtf-kpi-total">0</div><div class="dtf-kpi-sub">รายการทั้งหมด</div></div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #16a34a"><div class="dtf-kpi-lbl">Check-IN</div><div class="dtf-kpi-val" style="color:#16a34a" id="dtf-kpi-in">0</div><div class="dtf-kpi-sub">Pending</div></div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #065f46"><div class="dtf-kpi-lbl">Check-OUT</div><div class="dtf-kpi-val" style="color:#065f46" id="dtf-kpi-out">0</div><div class="dtf-kpi-sub">Done</div></div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #2563eb"><div class="dtf-kpi-lbl">PRB WD</div><div class="dtf-kpi-val" style="color:#2563eb" id="dtf-kpi-prb">0</div><div class="dtf-kpi-sub">คน</div></div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #7c3aed"><div class="dtf-kpi-lbl">BPI HDD</div><div class="dtf-kpi-val" style="color:#7c3aed" id="dtf-kpi-bpi034">0</div><div class="dtf-kpi-sub">คน</div></div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #a21caf"><div class="dtf-kpi-lbl">BPI THO</div><div class="dtf-kpi-val" style="color:#a21caf" id="dtf-kpi-bpi035">0</div><div class="dtf-kpi-sub">คน</div></div>
+          <div class="dtf-kpi-card" style="border-top:3px solid #ea580c"><div class="dtf-kpi-lbl">CW</div><div class="dtf-kpi-val" style="color:#ea580c" id="dtf-kpi-cw">0</div><div class="dtf-kpi-sub">คน</div></div>
         </div>
-
-        <!-- Progress Bar -->
         <div class="dtf-prog-wrap" id="dtf-progress-row" style="display:none">
           <div class="dtf-prog-card">
             <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
               <span style="font-size:10px;font-weight:700;color:#64748b;white-space:nowrap;flex-shrink:0">สัดส่วน:</span>
               <div style="flex:1;min-width:220px">
-                <div style="display:flex;justify-content:space-between;font-size:10px;color:#16a34a;font-weight:700;margin-bottom:3px">
-                  <span>⏳ Check-IN (Pending)</span><span id="dtf-bar-in-pct">0%</span>
-                </div>
-                <div style="height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;margin-bottom:6px">
-                  <div id="dtf-bar-in" style="height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:4px;transition:width .5s;width:0%"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;font-size:10px;color:#065f46;font-weight:700;margin-bottom:3px">
-                  <span>✅ Check-OUT (Done)</span><span id="dtf-bar-out-pct">0%</span>
-                </div>
-                <div style="height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden">
-                  <div id="dtf-bar-out" style="height:100%;background:linear-gradient(90deg,#059669,#047857);border-radius:4px;transition:width .5s;width:0%"></div>
-                </div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:#16a34a;font-weight:700;margin-bottom:3px"><span>⏳ Check-IN (Pending)</span><span id="dtf-bar-in-pct">0%</span></div>
+                <div style="height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;margin-bottom:6px"><div id="dtf-bar-in" style="height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:4px;transition:width .5s;width:0%"></div></div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:#065f46;font-weight:700;margin-bottom:3px"><span>✅ Check-OUT (Done)</span><span id="dtf-bar-out-pct">0%</span></div>
+                <div style="height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden"><div id="dtf-bar-out" style="height:100%;background:linear-gradient(90deg,#059669,#047857);border-radius:4px;transition:width .5s;width:0%"></div></div>
               </div>
-              <!-- Dept breakdown -->
               <div style="flex:1;min-width:220px" id="dtf-site-breakdown"></div>
             </div>
           </div>
         </div>
-
-        <!-- Table -->
         <div style="flex:1;min-height:0;overflow:auto;padding:8px 20px 14px">
           <div id="dtf-no-result" style="text-align:center;color:#94a3b8;padding:60px 20px;display:flex;flex-direction:column;align-items:center;gap:12px">
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="1.5">
-              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             <div style="font-size:13px">เลือกช่วงวันที่/เวลา แล้วกด <b style="color:#7c3aed">แสดงผล</b></div>
           </div>
           <table class="hist-tbl" id="dtf-table" style="display:none">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Check-IN Time</th>
-                <th>Check-OUT Time</th>
-                <th>Emp ID</th>
-                <th>ชื่อ-สกุล</th>
-                <th>Site</th>
-                <th>Department</th>
-                <th>Job Family</th>
-                <th>ประเภท</th>
-                <th>สถานะ</th>
-              </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Check-IN Time</th><th>Check-OUT Time</th><th>Emp ID</th><th>ชื่อ-สกุล</th><th>Site</th><th>Department</th><th>Job Family</th><th>ประเภท</th><th>สถานะ</th></tr></thead>
             <tbody id="dtf-tbody"></tbody>
           </table>
         </div>
@@ -1011,24 +945,24 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 
       <!-- ══ HELP ══ -->
       <div class="tab-panel" id="tab-help">
-        <div class="page-hdr"><div class="page-hdr-icon" style="background:#ecfeff"><svg viewBox="0 0 24 24" stroke="#0891b2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="page-hdr-title">วิธีการใช้งาน</div><div class="page-hdr-sub">v1.8.9 · IDB Persist Fix · Date-Time Filter · Local First</div></div></div>
+        <div class="page-hdr"><div class="page-hdr-icon" style="background:#ecfeff"><svg viewBox="0 0 24 24" stroke="#0891b2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="page-hdr-title">วิธีการใช้งาน</div><div class="page-hdr-sub">v1.9.1 · Mark Done · Date-Time Filter · Local First</div></div></div>
         <div class="ps">
           <div class="help-tabs"><button class="help-tab active" onclick="switchHelp('scan',this)">สแกนบัตร</button><button class="help-tab" onclick="switchHelp('checkout',this)">Check-OUT</button><button class="help-tab" onclick="switchHelp('system',this)">ระบบ</button></div>
           <div class="help-pane active" id="pane-scan"><div class="hs"><div class="hs-body"><div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><div>สแกนบัตรครั้งแรก = Check-IN · สแกนครั้งที่ 2 = Check-OUT · บันทึก Local ก่อนเสมอ</div></div></div></div></div>
           <div class="help-pane" id="pane-checkout"><div class="hs"><div class="hs-body">
             <div class="tip-box green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><div><b>สแกนครั้งแรก</b>: Check-IN → Pending</div></div>
             <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div><b>สแกนครั้งที่ 2 (≥10 นาที)</b>: Check-OUT → Done</div></div>
+            <div class="tip-box green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><div><b>ปุ่ม Done</b>: กดที่แถว Pending ใน "All completed record" เพื่อ Mark Done โดยไม่ต้องสแกนซ้ำ · เวลา OUT จะถูกสร้างอัตโนมัติ 5-10 นาทีหลัง IN</div></div>
           </div></div></div>
           <div class="help-pane" id="pane-system"><div class="hs"><div class="hs-body">
             <div class="tip-box blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><div>
-              <b>v1.8.9 — Date-Time Filter + IDB Persist Fix</b><br>
-              ✅ <b>กรองวันที่/เวลา</b>: เลือกช่วงเวลา + Quick filter (วันนี้/เมื่อวาน/7วัน/30วัน)<br>
-              ✅ <b>KPI Cards</b>: Total / IN / OUT / แยกรายไซต์ / CW<br>
-              ✅ <b>Progress Bar</b>: สัดส่วน IN vs OUT ในช่วงที่เลือก<br>
-              ✅ <b>Export CSV</b>: บันทึกผลตามตัวกรอง<br>
-              ✅ IDB Persist Fix — ข้อมูลไม่หายหลังเปิด-ปิด PC
+              <b>v1.9.1 — Mark Done</b><br>
+              ✅ <b>ปุ่ม Done</b>: กดได้ที่แถว Pending → Mark เป็น Done ทันที<br>
+              ✅ <b>เวลา OUT</b>: Auto-generate 5-10 นาทีหลัง Check-IN<br>
+              ✅ <b>Sync Firebase</b>: บันทึกขึ้น Cloud อัตโนมัติ<br>
+              ✅ ฟีเจอร์อื่นทั้งหมดเหมือน v1.9.0 ทุกประการ
             </div></div>
-            <div class="role-grid"><div class="role-card admin"><div class="role-card-title admin">Admin</div><div class="role-item">สแกน / รายงาน / Export / Import / แก้ไข / ลบ / Purge</div></div><div class="role-card user"><div class="role-card-title user">User</div><div class="role-item">สแกน / รายงาน / Export / Date-Time Filter</div></div></div>
+            <div class="role-grid"><div class="role-card admin"><div class="role-card-title admin">Admin</div><div class="role-item">Mark Done / สแกน / รายงาน / Export / Import / แก้ไข / ลบ / Purge</div></div><div class="role-card user"><div class="role-card-title user">User</div><div class="role-item">Mark Done / สแกน / รายงาน / Export / Date-Time Filter</div></div></div>
           </div></div></div>
         </div>
       </div>
@@ -1071,12 +1005,49 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
       </div>
 
       <div class="tab-panel" id="tab-stats-ci"><div class="page-hdr"><div class="page-hdr-icon" style="background:#f0fdf4"><svg viewBox="0 0 24 24" stroke="#16a34a"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 4-4"/></svg></div><div><div class="page-hdr-title">Summary by Dep.</div></div></div><div class="ps" id="statsCI-body"></div></div>
+
+      <!-- ══ ALL COMPLETED RECORD ══ -->
       <div class="tab-panel" id="tab-stats-hist">
-        <div class="page-hdr"><div class="page-hdr-icon" style="background:#ecfeff"><svg viewBox="0 0 24 24" stroke="#0891b2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div><div><div class="page-hdr-title">All completed record</div><div class="page-hdr-sub" id="histCount">รายการทั้งหมด</div></div><div class="page-hdr-actions"><button class="btn btn-g btn-sm" onclick="exportStatusCSV()">Export สถานะ</button><button class="btn btn-p btn-sm" onclick="exportCSV()">Export ทั้งหมด</button><button class="btn btn-o btn-sm" onclick="exportCSVByDate()">Export ตามวันที่</button></div></div>
-        <div class="date-filter-bar"><span class="date-filter-label">กรองวันที่:</span><input type="date" id="histDateFrom" class="hist-date-inp" onchange="renderHistory()"/><span style="font-size:11px;color:#94a3b8">ถึง</span><input type="date" id="histDateTo" class="hist-date-inp" onchange="renderHistory()"/><button class="btn btn-s btn-sm" onclick="clearDateFilter()">ล้างวันที่</button><span id="histDateInfo" style="font-size:11px;color:#94a3b8;margin-left:4px"></span></div>
-        <div class="hist-search-row"><div class="hist-inp-wrap"><svg class="hist-inp-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="histSearch" type="text" class="hist-inp" placeholder="ค้นหา ชื่อ / Employee ID..." oninput="renderHistory()"></div><select id="histSiteFilter" class="hist-sel" onchange="renderHistory()"><option value="all">ทุก Site</option><option value="PRB">PRB</option><option value="BPI034">BPI HDD</option><option value="BPI035">BPI THO</option></select><select id="histTypeFilter" class="hist-sel" onchange="renderHistory()"><option value="all">EMP + CW</option><option value="emp">EMP</option><option value="cw">CW</option></select><select id="histStatusFilter" class="hist-sel" onchange="renderHistory()"><option value="all">IN + OUT</option><option value="IN">Pending only</option><option value="OUT">Done only</option></select></div>
+        <div class="page-hdr">
+          <div class="page-hdr-icon" style="background:#ecfeff"><svg viewBox="0 0 24 24" stroke="#0891b2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <div>
+            <div class="page-hdr-title">All completed record</div>
+            <div class="page-hdr-sub" id="histCount">รายการทั้งหมด</div>
+          </div>
+          <div class="page-hdr-actions">
+            <button class="btn btn-g btn-sm" onclick="exportStatusCSV()">Export สถานะ</button>
+            <button class="btn btn-p btn-sm" onclick="exportCSV()">Export ทั้งหมด</button>
+            <button class="btn btn-o btn-sm" onclick="exportCSVByDate()">Export ตามวันที่</button>
+          </div>
+        </div>
+        <div class="date-filter-bar">
+          <span class="date-filter-label">กรองวันที่:</span>
+          <input type="date" id="histDateFrom" class="hist-date-inp" onchange="renderHistory()"/>
+          <span style="font-size:11px;color:#94a3b8">ถึง</span>
+          <input type="date" id="histDateTo" class="hist-date-inp" onchange="renderHistory()"/>
+          <button class="btn btn-s btn-sm" onclick="clearDateFilter()">ล้างวันที่</button>
+          <span id="histDateInfo" style="font-size:11px;color:#94a3b8;margin-left:4px"></span>
+        </div>
+        <div class="hist-search-row">
+          <div class="hist-inp-wrap">
+            <svg class="hist-inp-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="histSearch" type="text" class="hist-inp" placeholder="ค้นหา ชื่อ / Employee ID..." oninput="renderHistory()">
+          </div>
+          <select id="histSiteFilter" class="hist-sel" onchange="renderHistory()"><option value="all">ทุก Site</option><option value="PRB">PRB</option><option value="BPI034">BPI HDD</option><option value="BPI035">BPI THO</option></select>
+          <select id="histTypeFilter" class="hist-sel" onchange="renderHistory()"><option value="all">EMP + CW</option><option value="emp">EMP</option><option value="cw">CW</option></select>
+          <select id="histStatusFilter" class="hist-sel" onchange="renderHistory()"><option value="all">IN + OUT</option><option value="IN">Pending only</option><option value="OUT">Done only</option></select>
+        </div>
         <div style="flex:1;min-height:0;overflow:auto">
-          <table class="hist-tbl"><thead><tr><th>#</th><th>เวลา IN</th><th>เวลา OUT</th><th>Emp ID</th><th>ชื่อ-สกุล</th><th>Site</th><th>Department</th><th>Job Family</th><th>Manager</th><th>ประเภท</th><th>สถานะ</th><th>ลบ</th></tr></thead><tbody id="histBody"></tbody></table>
+          <table class="hist-tbl">
+            <thead>
+              <tr>
+                <th>#</th><th>เวลา IN</th><th>เวลา OUT</th><th>Emp ID</th>
+                <th>ชื่อ-สกุล</th><th>Site</th><th>Department</th><th>Job Family</th>
+                <th>Manager</th><th>ประเภท</th><th>สถานะ</th><th>Done</th><th>ลบ</th>
+              </tr>
+            </thead>
+            <tbody id="histBody"></tbody>
+          </table>
         </div>
       </div>
 
@@ -1157,26 +1128,13 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
         </div>
         <div id="tab-admin-purge-guard" class="admin-guard" style="display:none"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><h3>เฉพาะ Admin เท่านั้น</h3></div>
         <div class="ps" id="tab-admin-purge-content" style="display:none">
-          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px">
-            <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:12px">พื้นที่ใช้งาน</div>
-            <div id="purgeStorageInfo"></div>
-          </div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px"><div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:12px">พื้นที่ใช้งาน</div><div id="purgeStorageInfo"></div></div>
           <div class="ci-import-box">
-            <div class="ci-import-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Import Check-IN/OUT Log จากเครื่องอื่น
-            </div>
+            <div class="ci-import-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Import Check-IN/OUT Log จากเครื่องอื่น</div>
             <div class="ci-import-sub">รองรับ: <b>CSV</b> (Export ทั้งหมด / Export สถานะ) และ <b>JSON</b> (LocalStorage dump)</div>
             <div class="ci-import-row">
-              <label class="ci-import-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                เลือกไฟล์ CSV / JSON
-                <input type="file" id="ciImportFile" accept=".csv,.json" style="display:none" onchange="handleCIImportFile(this.files[0])"/>
-              </label>
-              <select id="ciImportMode" class="ci-import-sel">
-                <option value="merge">🔀 Merge</option>
-                <option value="replace">🔄 Replace</option>
-              </select>
+              <label class="ci-import-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>เลือกไฟล์ CSV / JSON<input type="file" id="ciImportFile" accept=".csv,.json" style="display:none" onchange="handleCIImportFile(this.files[0])"/></label>
+              <select id="ciImportMode" class="ci-import-sel"><option value="merge">🔀 Merge</option><option value="replace">🔄 Replace</option></select>
               <button class="btn btn-p btn-sm" id="ciImportBtn" onclick="executeCIImport()" style="display:none">นำเข้าข้อมูล</button>
             </div>
             <div class="ci-import-preview" id="ciImportPreview"><div class="ci-import-preview-inner"><div class="ci-import-preview-title">ตัวอย่าง:</div><div id="ciImportPreviewContent"></div></div></div>
@@ -1184,25 +1142,13 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
           </div>
           <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px">
             <div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">ลบข้อมูล</div>
-            <div class="purge-row" style="background:#fef2f2;border-color:#fecaca">
-              <div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fca5a5,#fecaca)"><svg viewBox="0 0 24 24" stroke="#dc2626"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div><div><div class="purge-lbl">Check-IN / Check-OUT Log</div><div class="purge-sub">ลบ Cloud ก่อน · ถ้า fail → ถามก่อนลบ Local</div></div></div>
-              <div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-ci-count" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca">0 รายการ</span><button class="btn btn-sm" onclick="purgeCI()" style="background:linear-gradient(180deg,#dc2626,#b91c1c);color:#fff;border:1px solid #991b1b;box-shadow:0 3px 0 #7f1d1d;font-weight:700">ลบ Log</button></div>
-            </div>
-            <div class="purge-row" style="background:#fffbeb;border-color:#fde68a">
-              <div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fde68a,#fef9c3)"><svg viewBox="0 0 24 24" stroke="#d97706"><circle cx="9" cy="7" r="4"/><path d="M2 21c0-4 3.13-7 7-7s7 3 7 7"/></svg></div><div><div class="purge-lbl">ฐานข้อมูลพนักงาน</div><div class="purge-sub">Local Storage (IndexedDB)</div></div></div>
-              <div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-emp-count" style="background:#fffbeb;color:#d97706;border:1px solid #fde68a">0 คน</span><button class="btn btn-sm" onclick="purgeEmpDB()" style="background:linear-gradient(180deg,#d97706,#b45309);color:#fff;border:1px solid #92400e;box-shadow:0 3px 0 #78350f;font-weight:700">ลบ DB</button></div>
-            </div>
-            <div class="purge-row" style="background:#f8fafc;border-color:#cbd5e1;margin-bottom:0">
-              <div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#cbd5e1,#e2e8f0)"><svg viewBox="0 0 24 24" stroke="#475569"><path d="M3 6h18M19 6l-1 14H6L5 6M8 6V4h8v2"/></svg></div><div><div class="purge-lbl">ลบ Log + DB</div><div class="purge-sub">Cloud + Local Storage พร้อมกัน</div></div></div>
-              <div><button class="btn btn-sm" onclick="purgeCIandDB()" style="background:linear-gradient(180deg,#475569,#334155);color:#fff;border:1px solid #1e293b;box-shadow:0 3px 0 #0f172a;font-weight:700">ลบทั้งคู่</button></div>
-            </div>
+            <div class="purge-row" style="background:#fef2f2;border-color:#fecaca"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fca5a5,#fecaca)"><svg viewBox="0 0 24 24" stroke="#dc2626"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></div><div><div class="purge-lbl">Check-IN / Check-OUT Log</div><div class="purge-sub">ลบ Cloud ก่อน · ถ้า fail → ถามก่อนลบ Local</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-ci-count" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca">0 รายการ</span><button class="btn btn-sm" onclick="purgeCI()" style="background:linear-gradient(180deg,#dc2626,#b91c1c);color:#fff;border:1px solid #991b1b;box-shadow:0 3px 0 #7f1d1d;font-weight:700">ลบ Log</button></div></div>
+            <div class="purge-row" style="background:#fffbeb;border-color:#fde68a"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#fde68a,#fef9c3)"><svg viewBox="0 0 24 24" stroke="#d97706"><circle cx="9" cy="7" r="4"/><path d="M2 21c0-4 3.13-7 7-7s7 3 7 7"/></svg></div><div><div class="purge-lbl">ฐานข้อมูลพนักงาน</div><div class="purge-sub">Local Storage (IndexedDB)</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="purge-badge" id="purge-emp-count" style="background:#fffbeb;color:#d97706;border:1px solid #fde68a">0 คน</span><button class="btn btn-sm" onclick="purgeEmpDB()" style="background:linear-gradient(180deg,#d97706,#b45309);color:#fff;border:1px solid #92400e;box-shadow:0 3px 0 #78350f;font-weight:700">ลบ DB</button></div></div>
+            <div class="purge-row" style="background:#f8fafc;border-color:#cbd5e1;margin-bottom:0"><div style="display:flex;align-items:center;gap:12px;flex:1"><div class="purge-icon" style="background:linear-gradient(135deg,#cbd5e1,#e2e8f0)"><svg viewBox="0 0 24 24" stroke="#475569"><path d="M3 6h18M19 6l-1 14H6L5 6M8 6V4h8v2"/></svg></div><div><div class="purge-lbl">ลบ Log + DB</div><div class="purge-sub">Cloud + Local Storage พร้อมกัน</div></div></div><div><button class="btn btn-sm" onclick="purgeCIandDB()" style="background:linear-gradient(180deg,#475569,#334155);color:#fff;border:1px solid #1e293b;box-shadow:0 3px 0 #0f172a;font-weight:700">ลบทั้งคู่</button></div></div>
           </div>
           <div class="danger-zone">
             <div class="danger-zone-title"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Danger Zone</div>
-            <div class="purge-row" style="border-color:#fecaca;background:#fef2f2;margin-bottom:0">
-              <div><div style="font-size:12px;font-weight:600;color:#dc2626">NUKE — ลบทุกอย่าง</div><div style="font-size:10px;color:#94a3b8;margin-top:1px">ยืนยัน 2 ครั้ง + พิมพ์ "DELETE ALL"</div></div>
-              <button class="btn btn-sm" onclick="nukeAllData()" style="background:linear-gradient(180deg,#7f1d1d,#991b1b);color:#fff;border:1.5px solid #dc2626;box-shadow:0 3px 0 #450a0a;font-weight:800">NUKE</button>
-            </div>
+            <div class="purge-row" style="border-color:#fecaca;background:#fef2f2;margin-bottom:0"><div><div style="font-size:12px;font-weight:600;color:#dc2626">NUKE — ลบทุกอย่าง</div><div style="font-size:10px;color:#94a3b8;margin-top:1px">ยืนยัน 2 ครั้ง + พิมพ์ "DELETE ALL"</div></div><button class="btn btn-sm" onclick="nukeAllData()" style="background:linear-gradient(180deg,#7f1d1d,#991b1b);color:#fff;border:1.5px solid #dc2626;box-shadow:0 3px 0 #450a0a;font-weight:800">NUKE</button></div>
           </div>
         </div>
       </div>
@@ -1218,11 +1164,10 @@ body{background:#e8eef5;color:#0f172a;display:flex;flex-direction:column;height:
 
 <script>
 /* ══════════════════════════════════════════════════════
-   Photo Taking FY2027 — v1.8.9
-   ✅ Date-Time Filter (NEW) — กรองตามวันที่/เวลา
-   ✅ IDB Persist Fix — ข้อมูลไม่หายหลังเปิด-ปิด PC
-   ✅ Local First + Pending Queue + Auto Sync
-   ✅ Safe Purge + NUKE + Import CI Log
+   Photo Taking FY2027 — v1.9.1
+   ✅ Mark Done — เพิ่มปุ่ม Done ใน All completed record
+      สำหรับแถวที่สถานะ Pending เท่านั้น
+   ✅ ฟีเจอร์อื่นทั้งหมดเหมือน v1.9.0 ทุกประการ
 ══════════════════════════════════════════════════════ */
 
 /* ══ Firebase ══ */
@@ -1323,7 +1268,7 @@ function switchHelp(pane,btn){document.querySelectorAll('.help-pane').forEach(fu
 function checkPassStrength(val){var bars=['pb1','pb2','pb3','pb4'];bars.forEach(function(id){var el=document.getElementById(id);if(el)el.className='pass-bar';});if(!val)return;var score=0;if(val.length>=6)score++;if(/[A-Z]/.test(val))score++;if(/[0-9]/.test(val))score++;if(/[^A-Za-z0-9]/.test(val))score++;var cls=score<=1?'w':score<=2?'m':'s';for(var i=0;i<score;i++){var el=document.getElementById(bars[i]);if(el)el.className='pass-bar '+cls;}}
 function togglePassVis(inputId){var inp=document.getElementById(inputId);if(!inp)return;inp.type=inp.type==='password'?'text':'password';}
 
-/* ══ INIT — v1.8.9 IDB Persist Fix ══ */
+/* ══ INIT ══ */
 (function(){
   loadCWConfig();loadPendingQueue();initUsers();loadCI();startClock();
   idbOpen()
@@ -1332,7 +1277,7 @@ function togglePassVis(inputId){var inp=document.getElementById(inputId);if(!inp
     .catch(function(e){console.warn('[IDB init]',e);idbReady=true;});
 })();
 
-/* ══ LOGIN — IDB Wait Patch ══ */
+/* ══ LOGIN ══ */
 function doLogin(){
   var un=document.getElementById('lgUser').value.trim();
   var pw=document.getElementById('lgPass').value;
@@ -1348,11 +1293,10 @@ function doLogin(){
         .then(function(r){empDB=(r&&r.length)?r:(empDB.length?empDB:[]);rebuildEmpMaps();btn.disabled=false;btn.textContent='เข้าสู่ระบบ';launchApp();})
         .catch(function(){rebuildEmpMaps();btn.disabled=false;btn.textContent='เข้าสู่ระบบ';launchApp();});
     }else if(attempt<30){setTimeout(function(){_waitIDB(attempt+1);},100);}
-    else{console.warn('[doLogin] IDB timeout');rebuildEmpMaps();btn.disabled=false;btn.textContent='เข้าสู่ระบบ';launchApp();}
+    else{rebuildEmpMaps();btn.disabled=false;btn.textContent='เข้าสู่ระบบ';launchApp();}
   }
   _waitIDB(0);
 }
-
 function setLgErr(m){var e=document.getElementById('lgErr');e.textContent='⚠ '+m;e.style.display='block';}
 function doLogout(){if(!confirm('ต้องการออกจากระบบ?'))return;if(fsListener){fsListener();fsListener=null;}if(_listenerRefreshTmr){clearTimeout(_listenerRefreshTmr);_listenerRefreshTmr=null;}curUser=null;isAdm=false;empDB=[];rebuildEmpMaps();document.getElementById('loginScreen').style.display='flex';document.getElementById('appShell').style.display='none';setFsStatus('connecting','กำลังเชื่อมต่อ...');}
 function launchApp(){document.getElementById('loginScreen').style.display='none';var shell=document.getElementById('appShell');shell.style.display='flex';shell.style.flexDirection='column';loginTime=new Date();var ini=(curUser.displayName||curUser.username).charAt(0).toUpperCase();var av=document.getElementById('sbAvatar');av.textContent=ini;av.className='sb-avatar '+(isAdm?'admin':'user');var pb=document.getElementById('sbPermBadge'),pi=document.getElementById('sbPermIcon'),pt=document.getElementById('sbPermText');if(isAdm){pb.className='sb-perm-badge admin';pi.className='sb-perm-icon admin';pt.textContent='สิทธิ์ Login by Admin';}else{pb.className='sb-perm-badge user';pi.className='sb-perm-icon user';pt.textContent='สิทธิ์ Login by User';}startClock();setLoginTimeDisplay();if(isAdm){document.getElementById('sbp-admin').style.display='';document.getElementById('adminSbSec').style.display='';document.getElementById('admin-sub').style.removeProperty('display');}else{document.getElementById('sbp-admin').style.display='none';document.getElementById('adminSbSec').style.display='none';document.getElementById('admin-sub').style.display='none';}applyAppMode();syncUI();warmVoices();startFsListener();scheduleListenerRefresh();setTimeout(function(){document.getElementById('scanInput').focus();},200);}
@@ -1402,12 +1346,10 @@ function goSumSite(key){var m=SUM_SITE_MAP[key];if(!m)return;siteFilterVal=m.sit
 var SUB_PAGE_MAP={'hc-wd':{tab:'tab-hc-wd',parent:'sbp-hc',sub:'ss-hc-wd',subId:'hc-sub',hcMode:'hc-wd'},'hc-cw':{tab:'tab-hc-cw',parent:'sbp-hc',sub:'ss-hc-cw',subId:'hc-sub',hcMode:'hc-cw'},'hc-prb':{tab:'tab-hc-prb',parent:'sbp-hc',sub:'ss-hc-prb',subId:'hc-sub',hcMode:'hc-prb'},'hc-prb-cw':{tab:'tab-hc-prb-cw',parent:'sbp-hc',sub:'ss-hc-prb-cw',subId:'hc-sub',hcMode:'hc-prb-cw'},'hc-bpi034':{tab:'tab-hc-bpi034',parent:'sbp-hc',sub:'ss-hc-bpi034',subId:'hc-sub',hcMode:'hc-bpi034'},'hc-bpi035':{tab:'tab-hc-bpi035',parent:'sbp-hc',sub:'ss-hc-bpi035',subId:'hc-sub',hcMode:'hc-bpi035'},'hc-bpi-cw':{tab:'tab-hc-bpi-cw',parent:'sbp-hc',sub:'ss-hc-bpi-cw',subId:'hc-sub',hcMode:'hc-bpi-cw'},'stats-ci':{tab:'tab-stats-ci',parent:'sbp-stats',sub:'ss-stats-ci',subId:'stats-sub'},'stats-hist':{tab:'tab-stats-hist',parent:'sbp-stats',sub:'ss-stats-hist',subId:'stats-sub'},'admin-users':{tab:'tab-admin-users',parent:'sbp-admin',sub:'ss-admin-users',subId:'admin-sub',adminPage:'users'},'admin-input':{tab:'tab-admin-input',parent:'sbp-admin',sub:'ss-admin-input',subId:'admin-sub',adminPage:'input'},'admin-add':{tab:'tab-admin-add',parent:'sbp-admin',sub:'ss-admin-add',subId:'admin-sub',adminPage:'add'},'admin-edit':{tab:'tab-admin-edit',parent:'sbp-admin',sub:'ss-admin-edit',subId:'admin-sub',adminPage:'edit'},'admin-del':{tab:'tab-admin-del',parent:'sbp-admin',sub:'ss-admin-del',subId:'admin-sub',adminPage:'del'},'admin-purge':{tab:'tab-admin-purge',parent:'sbp-admin',sub:'ss-admin-purge',subId:'admin-sub',adminPage:'purge'}};
 function goSubPage(page){var m=SUB_PAGE_MAP[page];if(!m)return;document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});var tp=document.getElementById(m.tab);if(tp)tp.classList.add('active');ensureSbSubOpen(m.subId,m.parent);document.querySelectorAll('.sb-btn').forEach(function(b){b.classList.remove('active','parent-active');});var par=document.getElementById(m.parent);if(par)par.classList.add('parent-active','sub-open');setSbSubActive(m.sub);if(m.adminPage)showAdminPage(m.adminPage);if(m.hcMode)renderHCPage(m.hcMode);if(page==='stats-ci')renderStatsCI();if(page==='stats-hist')renderHistory();if(page==='admin-input'&&isAdm)renderInputData();if(page==='admin-edit'&&isAdm){document.getElementById('editSearch').value='';renderEditSearch();}if(page==='admin-del'&&isAdm)renderDelSearch();if(page==='admin-users'&&isAdm)renderAccList();}
 
-/* ══ goTab — [PATCH] เพิ่ม dtfilter ══ */
 function goTab(name){
   document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('tab-'+name).classList.add('active');
   document.querySelectorAll('.sb-btn').forEach(function(b){b.classList.remove('active','parent-active');});
-  /* [PATCH] เพิ่ม dtfilter ใน idMap */
   var idMap={scan:'sbp-scan',sum:'sbp-sum',help:'sbp-help',report:'sbp-report',dtfilter:'sbp-dtfilter'};
   var el=document.getElementById(idMap[name]||'sbp-'+name);
   if(el){if(el.classList.contains('type-direct'))el.classList.add('active');else el.classList.add('parent-active','sub-open');}
@@ -1465,7 +1407,128 @@ function sPBar(l,d,t,c){var p=t>0?Math.round(d/t*100):0;return'<div class="pbr">
 function clearDateFilter(){var df=document.getElementById('histDateFrom'),dt=document.getElementById('histDateTo');if(df)df.value='';if(dt)dt.value='';renderHistory();}
 function getDateFilterRows(arr){var dfVal=(document.getElementById('histDateFrom')||{}).value||'',dtVal=(document.getElementById('histDateTo')||{}).value||'';var info=document.getElementById('histDateInfo');if(!dfVal&&!dtVal){if(info)info.textContent='';return arr;}var fromD=dfVal?new Date(dfVal+' 00:00:00'):null,toD=dtVal?new Date(dtVal+' 23:59:59'):null;var filtered=arr.filter(function(r){if(!r.ts)return true;var d=new Date(r.ts);if(fromD&&d<fromD)return false;if(toD&&d>toD)return false;return true;});if(info){var parts=[];if(dfVal)parts.push('ตั้งแต่ '+dfVal);if(dtVal)parts.push('ถึง '+dtVal);info.textContent=parts.join(' ')+(filtered.length?' — '+filtered.length+' รายการ':'');}return filtered;}
 function deleteCIRow(key){if(!isAdm)return;if(!ciLog[key])return;if(!confirm('ลบรายการนี้?'))return;var rec=ciLog[key];var empId=rec&&rec.empId;delete ciLog[key];lsSaveLocal();if(empId)fsDelete(empId);syncUI();renderHistory();renderSummary();showToast('ok','ลบสำเร็จ');}
-function renderHistory(){var arr=Object.values(ciLog).slice().sort(function(a,b){return(b.ts||0)-(a.ts||0);});arr=getDateFilterRows(arr);var q=(document.getElementById('histSearch')||{value:''}).value.toLowerCase(),sf=(document.getElementById('histSiteFilter')||{value:'all'}).value,tf=(document.getElementById('histTypeFilter')||{value:'all'}).value,stf=(document.getElementById('histStatusFilter')||{value:'all'}).value;var filtered=arr.filter(function(r){var emp=_empById[String(r.empId||'').toUpperCase()];var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});var cw=emp&&isCW(emp);if(sf!=='all'&&sv!==sf)return false;if(tf==='emp'&&cw)return false;if(tf==='cw'&&!cw)return false;if(stf!=='all'&&(r.status||'IN')!==stf)return false;if(q&&!((r.empId||'').toLowerCase().includes(q)||(r.name||'').toLowerCase().includes(q)||(r.dept||'').toLowerCase().includes(q)))return false;return true;});var hc=document.getElementById('histCount');if(hc)hc.textContent=filtered.length.toLocaleString()+' รายการ';var tb=document.getElementById('histBody');if(!tb)return;if(!filtered.length){tb.innerHTML='<tr><td colspan="12" style="text-align:center;color:#cbd5e1;padding:32px">ไม่มีข้อมูล</td></tr>';return;}tb.innerHTML=filtered.slice(0,500).map(function(r,i){var emp=_empById[String(r.empId||'').toUpperCase()]||{};var sv=emp.empId?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});var cw=emp.empId&&isCW(emp);var sd=siteDisp(sv);var status=r.status||'IN';var wt=cw?'<span style="background:#fff8f0;color:#ea580c;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">CW</span>':'<span style="background:#eff6ff;color:#2563eb;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">EMP</span>';var st=status==='OUT'?'<span class="tout">Done</span>':'<span class="ti">Pending</span>';var rk=normBadge(r.badgeId||r.empId||'').toLowerCase()||String(r.empId||'').toLowerCase();var delBtn=isAdm?'<button class="ci-del-btn" data-key="'+escH(rk)+'" style="padding:3px 8px;border-radius:6px;border:1px solid #fecaca;background:#fef2f2;color:#dc2626;font-size:10px;font-weight:700;cursor:pointer">ลบ</button>':'–';return'<tr><td style="color:#94a3b8">'+(i+1)+'</td><td style="white-space:nowrap;color:#16a34a;font-family:monospace;font-size:11px">'+(r.timeIn||'–')+'</td><td style="white-space:nowrap;color:#2563eb;font-family:monospace;font-size:11px">'+(r.timeOut||'—')+'</td><td style="font-family:monospace;color:#2563eb;font-weight:700">'+(r.empId||'–')+'</td><td style="font-weight:600">'+(r.name||'–')+'</td><td><span class="tp">'+sd+'</span></td><td>'+(r.dept||emp.dept||'–')+'</td><td>'+(r.jf||emp.jf||'–')+'</td><td>'+(r.mgr||emp.mgr||'–')+'</td><td>'+wt+'</td><td>'+st+'</td><td>'+delBtn+'</td></tr>';}).join('');if(isAdm){tb.querySelectorAll('.ci-del-btn').forEach(function(btn){btn.addEventListener('click',function(){deleteCIRow(btn.getAttribute('data-key'));});});}}
+
+/* ══════════════════════════════════════════════════════
+   [NEW] markDone — v1.9.1
+   กดปุ่ม Done ใน All completed record
+   สำหรับแถวที่สถานะ Pending เท่านั้น
+   - สร้าง Check-OUT time อัตโนมัติ 5-10 นาทีหลัง IN
+   - บันทึก Local + Sync Firebase
+   - ไม่แตะฟังก์ชันอื่น
+══════════════════════════════════════════════════════ */
+function markDone(rowKey){
+  var rec=ciLog[rowKey];
+  if(!rec){showToast('err','ไม่พบรายการ');return;}
+  if(rec.status==='OUT'){showToast('warn','บันทึก Done แล้ว');return;}
+
+  /* สร้างเวลา OUT = IN + 5-10 นาที (สุ่ม) */
+  var inTs=rec.ts||Date.now();
+  var addMs=(Math.floor(Math.random()*6)+5)*60*1000; /* 5-10 นาที */
+  var outTs=inTs+addMs;
+  var outDate=new Date(outTs);
+
+  /* format เวลา */
+  var pad=function(n){return String(n).padStart(2,'0');};
+  var outTimeRaw=pad(outDate.getHours())+':'+pad(outDate.getMinutes())+':'+pad(outDate.getSeconds());
+  var outDateStr=outDate.toLocaleDateString('th-TH',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+outTimeRaw;
+
+  /* อัพเดทรายการ */
+  rec.timeOut=outDateStr;
+  rec.timeOutRaw=outTimeRaw;
+  rec.duration=calcDuration(rec.timeInRaw||'00:00:00',outTimeRaw);
+  rec.status='OUT';
+  rec.tsOut=outTs;
+  rec.dateKey=rec.dateKey||todayKey();
+
+  /* บันทึก + Sync */
+  lsSave(rowKey,rec);
+  syncUI();
+  renderSummary();
+  renderHistory();
+  showToast('ok','✅ Mark Done: '+escH(rec.name||rec.empId)+' — OUT: '+outTimeRaw);
+}
+
+/* ══ renderHistory — แก้เฉพาะคอลัมน์ Done ══ */
+function renderHistory(){
+  var arr=Object.values(ciLog).slice().sort(function(a,b){return(b.ts||0)-(a.ts||0);});
+  arr=getDateFilterRows(arr);
+  var q=(document.getElementById('histSearch')||{value:''}).value.toLowerCase(),
+      sf=(document.getElementById('histSiteFilter')||{value:'all'}).value,
+      tf=(document.getElementById('histTypeFilter')||{value:'all'}).value,
+      stf=(document.getElementById('histStatusFilter')||{value:'all'}).value;
+  var filtered=arr.filter(function(r){
+    var emp=_empById[String(r.empId||'').toUpperCase()];
+    var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});
+    var cw=emp&&isCW(emp);
+    if(sf!=='all'&&sv!==sf)return false;
+    if(tf==='emp'&&cw)return false;
+    if(tf==='cw'&&!cw)return false;
+    if(stf!=='all'&&(r.status||'IN')!==stf)return false;
+    if(q&&!((r.empId||'').toLowerCase().includes(q)||(r.name||'').toLowerCase().includes(q)||(r.dept||'').toLowerCase().includes(q)))return false;
+    return true;
+  });
+  var hc=document.getElementById('histCount');
+  if(hc)hc.textContent=filtered.length.toLocaleString()+' รายการ';
+  var tb=document.getElementById('histBody');
+  if(!tb)return;
+  if(!filtered.length){
+    tb.innerHTML='<tr><td colspan="13" style="text-align:center;color:#cbd5e1;padding:32px">ไม่มีข้อมูล</td></tr>';
+    return;
+  }
+  tb.innerHTML=filtered.slice(0,500).map(function(r,i){
+    var emp=_empById[String(r.empId||'').toUpperCase()]||{};
+    var sv=emp.empId?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});
+    var cw=emp.empId&&isCW(emp);
+    var sd=siteDisp(sv);
+    var status=r.status||'IN';
+    var wt=cw
+      ?'<span style="background:#fff8f0;color:#ea580c;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">CW</span>'
+      :'<span style="background:#eff6ff;color:#2563eb;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">EMP</span>';
+    var st=status==='OUT'?'<span class="tout">Done</span>':'<span class="ti">Pending</span>';
+    var rk=normBadge(r.badgeId||r.empId||'').toLowerCase()||String(r.empId||'').toLowerCase();
+    var delBtn=isAdm
+      ?'<button class="ci-del-btn" data-key="'+escH(rk)+'" style="padding:3px 8px;border-radius:6px;border:1px solid #fecaca;background:#fef2f2;color:#dc2626;font-size:10px;font-weight:700;cursor:pointer">ลบ</button>'
+      :'–';
+    /* ── [NEW] ปุ่ม Done: แสดงเฉพาะแถว Pending ── */
+    var doneBtn=status==='IN'
+      ?'<button class="btn-mark-done mark-done-btn" data-key="'+escH(rk)+'">'
+        +'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+        +'Done</button>'
+      :'–';
+    return'<tr>'
+      +'<td style="color:#94a3b8">'+(i+1)+'</td>'
+      +'<td style="white-space:nowrap;color:#16a34a;font-family:monospace;font-size:11px">'+(r.timeIn||'–')+'</td>'
+      +'<td style="white-space:nowrap;color:#2563eb;font-family:monospace;font-size:11px">'+(r.timeOut||'—')+'</td>'
+      +'<td style="font-family:monospace;color:#2563eb;font-weight:700">'+(r.empId||'–')+'</td>'
+      +'<td style="font-weight:600">'+(r.name||'–')+'</td>'
+      +'<td><span class="tp">'+sd+'</span></td>'
+      +'<td>'+(r.dept||emp.dept||'–')+'</td>'
+      +'<td>'+(r.jf||emp.jf||'–')+'</td>'
+      +'<td>'+(r.mgr||emp.mgr||'–')+'</td>'
+      +'<td>'+wt+'</td>'
+      +'<td>'+st+'</td>'
+      +'<td>'+doneBtn+'</td>'
+      +'<td>'+delBtn+'</td>'
+      +'</tr>';
+  }).join('');
+
+  /* bind event ปุ่ม Done */
+  tb.querySelectorAll('.mark-done-btn').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      markDone(btn.getAttribute('data-key'));
+    });
+  });
+
+  /* bind event ปุ่ม ลบ */
+  if(isAdm){
+    tb.querySelectorAll('.ci-del-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        deleteCIRow(btn.getAttribute('data-key'));
+      });
+    });
+  }
+}
 
 var EXPORT_COLS=[{h:'Employee ID',k:'empId'},{h:'Badge ID',k:'badgeId'},{h:'Employee Name',k:'name'},{h:'Legal - Kanji',k:'kanji'},{h:'Location',k:'loc'},{h:'Cloud Site Code',k:'site'},{h:'Site Label',k:'_sitelabel'},{h:'Department',k:'dept'},{h:'Cost Center Code',k:'ccCode'},{h:'Cost Center Name',k:'ccName'},{h:'Job Family',k:'jf'},{h:'Manager Name',k:'mgr'},{h:'Management Chain Level 07 Name',k:'mc7'},{h:'HOD Name',k:'hod'},{h:'Worker Type',k:'_wtype'},{h:'Check-IN Time',k:'timeIn'},{h:'Check-OUT Time',k:'timeOut'},{h:'Status',k:'_statuslabel'},{h:'Recorded By',k:'by'}];
 function exportStatusCSV(){if(!empDB.length){alert('ไม่มีข้อมูล');return;}var ciSet={};Object.values(ciLog).forEach(function(r){if(r.empId)ciSet[r.empId]=r;});var hdr=EXPORT_COLS.map(function(c){return'"'+c.h+'"';}).join(',');var rows=empDB.map(function(e){var ci=ciSet[e.empId];var sv=siteLabel(e);var merged={empId:e.empId,badgeId:e.badgeId||'',name:e.name||'',kanji:e.kanji||'',loc:e.loc||'',site:e.site||'',_sitelabel:siteDisp(sv),dept:e.dept||'',ccCode:e.ccCode||'',ccName:e.ccName||'',jf:e.jf||'',mgr:(e.mgr||'').split('(')[0].trim(),mc7:e.mc7||'',hod:(e.hod||'').split('(')[0].trim(),_wtype:isCW(e)?'CW':'Employee',timeIn:ci&&ci.timeIn?ci.timeIn:'',timeOut:ci&&ci.timeOut?ci.timeOut:'',_statuslabel:ci?(ci.status==='OUT'?'Done':'Pending'):'',by:ci&&ci.by?ci.by:''};return EXPORT_COLS.map(function(c){return'"'+String(merged[c.k]||'').replace(/"/g,'""')+'"';}).join(',');});dlCSV(hdr+'\n'+rows.join('\n'),'status_all_'+today()+'.csv');showToast('ok','Export สำเร็จ');}
@@ -1499,208 +1562,20 @@ function speak(text){if(!('speechSynthesis'in window))return;speechSynthesis.can
 
 function destroyChart(id){if(_chartInstances[id]){_chartInstances[id].destroy();delete _chartInstances[id];}}
 function makeChart(id,config){destroyChart(id);var canvas=document.getElementById(id);if(!canvas)return;_chartInstances[id]=new Chart(canvas,config);}
-function renderReport(){var body=document.getElementById('report-body');if(!body)return;var now=new Date();var gt=document.getElementById('rptGenTime');if(gt)gt.textContent='อัพเดท: '+now.toLocaleDateString('th-TH')+' '+now.toLocaleTimeString('th-TH');var siteFl=(document.getElementById('rptSiteFilter')||{value:'all'}).value;var typeFl=(document.getElementById('rptTypeFilter')||{value:'all'}).value;var fDB=empDB.filter(function(e){var sv=siteLabel(e),cw=isCW(e);if(siteFl!=='all'&&sv!==siteFl)return false;if(typeFl==='emp'&&cw)return false;if(typeFl==='cw'&&!cw)return false;return true;});var ciSet={},coutSet={};Object.values(ciLog).forEach(function(r){if(r.empId){ciSet[r.empId]=r;if(r.status==='OUT')coutSet[r.empId]=r;}});var total=fDB.length;var ciDone=fDB.filter(function(e){return ciSet[e.empId];}).length;var coutDone=fDB.filter(function(e){return coutSet[e.empId];}).length;var pending=ciDone-coutDone;var notYet=total-ciDone;var pct=total>0?Math.round(ciDone/total*100):0;var kpiHTML='<div class="rpt-kpi-grid">';kpiHTML+=rptKPI('HC ทั้งหมด',total,'#2563eb','คน');kpiHTML+=rptKPI('ถ่ายรูปแล้ว (Check-IN)',ciDone,'#16a34a',pct+'%');kpiHTML+=rptKPI('Check-OUT เสร็จสมบูรณ์',coutDone,'#065f46','คน');kpiHTML+=rptKPI('ยังไม่ได้ถ่ายรูป',notYet,'#d97706','คน');kpiHTML+='</div>';var deptMap={};fDB.forEach(function(e){var d=e.dept||'(ไม่ระบุ)';if(!deptMap[d])deptMap[d]={total:0,done:0,cout:0,notYet:0};deptMap[d].total++;if(ciSet[e.empId])deptMap[d].done++;if(coutSet[e.empId])deptMap[d].cout++;});Object.keys(deptMap).forEach(function(d){deptMap[d].notYet=deptMap[d].total-deptMap[d].done;});var deptArr=Object.entries(deptMap).sort(function(a,b){return b[1].total-a[1].total;});var dayMap={};Object.values(ciLog).forEach(function(r){if(!r.ts)return;var emp=_empById[String(r.empId||'').toUpperCase()];if(siteFl!=='all'){var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});if(sv!==siteFl)return;}if(typeFl==='emp'){var cw=emp&&isCW(emp);if(cw)return;}if(typeFl==='cw'){var cw2=emp&&isCW(emp);if(!cw2)return;}var d=new Date(r.ts);var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!dayMap[key])dayMap[key]={in:0,out:0};dayMap[key].in++;if(r.status==='OUT')dayMap[key].out++;});var dayKeys=Object.keys(dayMap).sort();body.innerHTML=kpiHTML+'<div class="rpt-chart-card" style="margin-bottom:14px"><div class="rpt-chart-title">📊 จำนวนคนที่เข้ามาถ่ายรูป / วัน</div><div class="rpt-chart-sub">Check-IN และ Check-OUT แต่ละวัน</div><div class="rpt-chart-wrap" style="height:220px"><canvas id="rptChartDay"></canvas></div></div><div class="rpt-two-col"><div class="rpt-chart-card"><div class="rpt-chart-title">📋 Check-IN / แผนก (Top 15)</div><div class="rpt-chart-sub">แผนกที่มีจำนวนถ่ายรูปมากที่สุด</div><div class="rpt-chart-wrap" style="height:320px"><canvas id="rptChartDeptIn"></canvas></div></div><div class="rpt-chart-card"><div class="rpt-chart-title">⏳ ยังไม่ถ่ายรูป / แผนก (Top 15)</div><div class="rpt-chart-sub">แผนกที่ยังมีคนค้างมากที่สุด</div><div class="rpt-chart-wrap" style="height:320px"><canvas id="rptChartDeptPending"></canvas></div></div></div><div class="rpt-chart-card" style="margin-top:14px"><div class="rpt-chart-title">📈 สรุปภาพรวม / แผนก (Top 20)</div><div class="rpt-chart-sub">เปรียบเทียบสัดส่วนการถ่ายรูป</div><div class="rpt-chart-wrap" style="height:300px"><canvas id="rptChartDeptStacked"></canvas></div></div><div class="rpt-chart-card" style="margin-top:14px"><div class="rpt-chart-title">🍩 สัดส่วนภาพรวม</div><div class="rpt-two-col" style="margin-top:8px"><div class="rpt-chart-wrap" style="height:240px"><canvas id="rptChartDonut"></canvas></div><div class="rpt-chart-wrap" style="height:240px"><canvas id="rptChartDonut2"></canvas></div></div></div>'+rptDeptTable(deptArr);setTimeout(function(){if(dayKeys.length){makeChart('rptChartDay',{type:'bar',data:{labels:dayKeys,datasets:[{label:'Check-IN',data:dayKeys.map(function(k){return dayMap[k].in;}),backgroundColor:'rgba(37,99,235,.75)',borderColor:'#2563eb',borderWidth:1.5,borderRadius:6},{label:'Check-OUT',data:dayKeys.map(function(k){return dayMap[k].out;}),backgroundColor:'rgba(22,163,74,.75)',borderColor:'#16a34a',borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true}}}});}else{var c1=document.getElementById('rptChartDay');if(c1)c1.parentElement.innerHTML='<div style="text-align:center;padding:40px;color:#94a3b8;font-size:12px">ยังไม่มีข้อมูล</div>';}var top15Done=deptArr.slice(0,15);makeChart('rptChartDeptIn',{type:'bar',data:{labels:top15Done.map(function(k){return k[0];}),datasets:[{label:'Check-IN',data:top15Done.map(function(k){return k[1].done;}),backgroundColor:'rgba(34,197,94,.8)',borderColor:'#16a34a',borderWidth:1.5,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});var top15NY=deptArr.slice().sort(function(a,b){return b[1].notYet-a[1].notYet;}).slice(0,15);makeChart('rptChartDeptPending',{type:'bar',data:{labels:top15NY.map(function(k){return k[0];}),datasets:[{label:'ยังไม่ถ่าย',data:top15NY.map(function(k){return k[1].notYet;}),backgroundColor:'rgba(251,191,36,.8)',borderColor:'#d97706',borderWidth:1.5,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});var top20=deptArr.slice(0,20);makeChart('rptChartDeptStacked',{type:'bar',data:{labels:top20.map(function(k){return k[0];}),datasets:[{label:'Check-IN',data:top20.map(function(k){return k[1].done;}),backgroundColor:'rgba(34,197,94,.75)',borderColor:'#16a34a',borderWidth:1,borderRadius:4},{label:'ยังไม่ถ่าย',data:top20.map(function(k){return k[1].notYet;}),backgroundColor:'rgba(251,191,36,.75)',borderColor:'#d97706',borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},tooltip:{mode:'index'}},scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}});makeChart('rptChartDonut',{type:'doughnut',data:{labels:['Check-IN แล้ว','ยังไม่ถ่าย'],datasets:[{data:[ciDone,notYet],backgroundColor:['rgba(34,197,94,.8)','rgba(251,191,36,.8)'],borderColor:['#16a34a','#d97706'],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom'},title:{display:true,text:'สัดส่วน Check-IN'}}}});makeChart('rptChartDonut2',{type:'doughnut',data:{labels:['Check-OUT Done','Pending IN','ยังไม่ถ่าย'],datasets:[{data:[coutDone,pending,notYet],backgroundColor:['rgba(6,95,70,.8)','rgba(37,99,235,.8)','rgba(251,191,36,.8)'],borderColor:['#065f46','#2563eb','#d97706'],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom'},title:{display:true,text:'สัดส่วน OUT / IN / ยังไม่ถ่าย'}}}});},120);}
+function renderReport(){var body=document.getElementById('report-body');if(!body)return;var now=new Date();var gt=document.getElementById('rptGenTime');if(gt)gt.textContent='อัพเดท: '+now.toLocaleDateString('th-TH')+' '+now.toLocaleTimeString('th-TH');var siteFl=(document.getElementById('rptSiteFilter')||{value:'all'}).value;var typeFl=(document.getElementById('rptTypeFilter')||{value:'all'}).value;var fDB=empDB.filter(function(e){var sv=siteLabel(e),cw=isCW(e);if(siteFl!=='all'&&sv!==siteFl)return false;if(typeFl==='emp'&&cw)return false;if(typeFl==='cw'&&!cw)return false;return true;});var ciSet={},coutSet={};Object.values(ciLog).forEach(function(r){if(r.empId){ciSet[r.empId]=r;if(r.status==='OUT')coutSet[r.empId]=r;}});var total=fDB.length;var ciDone=fDB.filter(function(e){return ciSet[e.empId];}).length;var coutDone=fDB.filter(function(e){return coutSet[e.empId];}).length;var pending=ciDone-coutDone;var notYet=total-ciDone;var pct=total>0?Math.round(ciDone/total*100):0;var kpiHTML='<div class="rpt-kpi-grid">';kpiHTML+=rptKPI('HC ทั้งหมด',total,'#2563eb','คน');kpiHTML+=rptKPI('Photo registration completed. | ลงทะเบียนถ่ายรูปแล้ว',ciDone,'#16a34a',pct+'%');kpiHTML+=rptKPI('Photograph completed. | ถ่ายรูปแล้ว',coutDone,'#065f46','คน');kpiHTML+=rptKPI('Photo registration pending | ยังไม่ลงทะเบียนถ่านรูป',notYet,'#d97706','คน');kpiHTML+='</div>';var deptMap={};fDB.forEach(function(e){var d=e.dept||'(ไม่ระบุ)';if(!deptMap[d])deptMap[d]={total:0,done:0,cout:0,notYet:0};deptMap[d].total++;if(ciSet[e.empId])deptMap[d].done++;if(coutSet[e.empId])deptMap[d].cout++;});Object.keys(deptMap).forEach(function(d){deptMap[d].notYet=deptMap[d].total-deptMap[d].done;});var deptArr=Object.entries(deptMap).sort(function(a,b){return b[1].total-a[1].total;});var dayMap={};Object.values(ciLog).forEach(function(r){if(!r.ts)return;var emp=_empById[String(r.empId||'').toUpperCase()];if(siteFl!=='all'){var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});if(sv!==siteFl)return;}if(typeFl==='emp'){var cw=emp&&isCW(emp);if(cw)return;}if(typeFl==='cw'){var cw2=emp&&isCW(emp);if(!cw2)return;}var d=new Date(r.ts);var key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!dayMap[key])dayMap[key]={in:0,out:0};dayMap[key].in++;if(r.status==='OUT')dayMap[key].out++;});var dayKeys=Object.keys(dayMap).sort();body.innerHTML=kpiHTML+'<div class="rpt-chart-card" style="margin-bottom:14px"><div class="rpt-chart-title">📊 จำนวนคนที่เข้ามาถ่ายรูป / วัน</div><div class="rpt-chart-sub">Check-IN และ Check-OUT แต่ละวัน</div><div class="rpt-chart-wrap" style="height:220px"><canvas id="rptChartDay"></canvas></div></div><div class="rpt-two-col"><div class="rpt-chart-card"><div class="rpt-chart-title">📋 Check-IN / แผนก (Top 15)</div><div class="rpt-chart-sub">แผนกที่มีจำนวนถ่ายรูปมากที่สุด</div><div class="rpt-chart-wrap" style="height:320px"><canvas id="rptChartDeptIn"></canvas></div></div><div class="rpt-chart-card"><div class="rpt-chart-title">⏳ ยังไม่ถ่ายรูป / แผนก (Top 15)</div><div class="rpt-chart-sub">แผนกที่ยังมีคนค้างมากที่สุด</div><div class="rpt-chart-wrap" style="height:320px"><canvas id="rptChartDeptPending"></canvas></div></div></div><div class="rpt-chart-card" style="margin-top:14px"><div class="rpt-chart-title">📈 สรุปภาพรวม / แผนก (Top 20)</div><div class="rpt-chart-sub">เปรียบเทียบสัดส่วนการถ่ายรูป</div><div class="rpt-chart-wrap" style="height:300px"><canvas id="rptChartDeptStacked"></canvas></div></div><div class="rpt-chart-card" style="margin-top:14px"><div class="rpt-chart-title">🍩 สัดส่วนภาพรวม</div><div class="rpt-two-col" style="margin-top:8px"><div class="rpt-chart-wrap" style="height:240px"><canvas id="rptChartDonut"></canvas></div><div class="rpt-chart-wrap" style="height:240px"><canvas id="rptChartDonut2"></canvas></div></div></div>'+rptDeptTable(deptArr);setTimeout(function(){if(dayKeys.length){makeChart('rptChartDay',{type:'bar',data:{labels:dayKeys,datasets:[{label:'Check-IN',data:dayKeys.map(function(k){return dayMap[k].in;}),backgroundColor:'rgba(37,99,235,.75)',borderColor:'#2563eb',borderWidth:1.5,borderRadius:6},{label:'Check-OUT',data:dayKeys.map(function(k){return dayMap[k].out;}),backgroundColor:'rgba(22,163,74,.75)',borderColor:'#16a34a',borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true}}}});}else{var c1=document.getElementById('rptChartDay');if(c1)c1.parentElement.innerHTML='<div style="text-align:center;padding:40px;color:#94a3b8;font-size:12px">ยังไม่มีข้อมูล</div>';}var top15Done=deptArr.slice(0,15);makeChart('rptChartDeptIn',{type:'bar',data:{labels:top15Done.map(function(k){return k[0];}),datasets:[{label:'Check-IN',data:top15Done.map(function(k){return k[1].done;}),backgroundColor:'rgba(34,197,94,.8)',borderColor:'#16a34a',borderWidth:1.5,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});var top15NY=deptArr.slice().sort(function(a,b){return b[1].notYet-a[1].notYet;}).slice(0,15);makeChart('rptChartDeptPending',{type:'bar',data:{labels:top15NY.map(function(k){return k[0];}),datasets:[{label:'ยังไม่ถ่าย',data:top15NY.map(function(k){return k[1].notYet;}),backgroundColor:'rgba(251,191,36,.8)',borderColor:'#d97706',borderWidth:1.5,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});var top20=deptArr.slice(0,20);makeChart('rptChartDeptStacked',{type:'bar',data:{labels:top20.map(function(k){return k[0];}),datasets:[{label:'Check-IN',data:top20.map(function(k){return k[1].done;}),backgroundColor:'rgba(34,197,94,.75)',borderColor:'#16a34a',borderWidth:1,borderRadius:4},{label:'ยังไม่ถ่าย',data:top20.map(function(k){return k[1].notYet;}),backgroundColor:'rgba(251,191,36,.75)',borderColor:'#d97706',borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},tooltip:{mode:'index'}},scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}});makeChart('rptChartDonut',{type:'doughnut',data:{labels:['Check-IN แล้ว','ยังไม่ถ่าย'],datasets:[{data:[ciDone,notYet],backgroundColor:['rgba(34,197,94,.8)','rgba(251,191,36,.8)'],borderColor:['#16a34a','#d97706'],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom'},title:{display:true,text:'สัดส่วน Check-IN'}}}});makeChart('rptChartDonut2',{type:'doughnut',data:{labels:['Check-OUT Done','Pending IN','ยังไม่ถ่าย'],datasets:[{data:[coutDone,pending,notYet],backgroundColor:['rgba(6,95,70,.8)','rgba(37,99,235,.8)','rgba(251,191,36,.8)'],borderColor:['#065f46','#2563eb','#d97706'],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom'},title:{display:true,text:'สัดส่วน OUT / IN / ยังไม่ถ่าย'}}}});},120);}
 function rptKPI(label,val,color,unit){return'<div class="rpt-kpi" style="border-top:3px solid '+color+'"><div class="rpt-kpi-lbl">'+label+'</div><div class="rpt-kpi-val" style="color:'+color+'">'+val.toLocaleString()+'</div><div class="rpt-kpi-sub">'+unit+'</div></div>';}
 function rptDeptTable(deptArr){if(!deptArr.length)return'';var rows=deptArr.map(function(kv,i){var d=kv[0],g=kv[1];var pct=g.total>0?Math.round(g.done/g.total*100):0;var col=pct>=80?'#16a34a':pct>=50?'#f59e0b':'#ef4444';return'<tr><td style="color:#94a3b8;text-align:center">'+(i+1)+'</td><td style="font-weight:700">'+escH(d)+'</td><td style="text-align:right;font-weight:800;color:#2563eb">'+g.total+'</td><td style="text-align:right;color:#16a34a;font-weight:700">'+g.done+'</td><td style="text-align:right;color:#065f46;font-weight:700">'+g.cout+'</td><td style="text-align:right;color:#d97706;font-weight:700">'+g.notYet+'</td><td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;min-width:60px"><div style="height:100%;width:'+pct+'%;background:'+col+';border-radius:4px"></div></div><span style="font-size:12px;font-weight:700;color:'+col+';min-width:38px;text-align:right">'+pct+'%</span></div></td></tr>';}).join('');return'<div class="rpt-chart-card" style="margin-top:14px"><div class="rpt-chart-title">📑 ตารางสรุปแยกแผนก</div><div style="overflow-x:auto;margin-top:10px"><table class="hc-tbl"><thead><tr><th>#</th><th>Department</th><th style="text-align:right">HC</th><th style="text-align:right">Check-IN</th><th style="text-align:right">Check-OUT</th><th style="text-align:right">คงเหลือ</th><th>Rate</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';}
 function exportReportCSV(){var siteFl=(document.getElementById('rptSiteFilter')||{value:'all'}).value;var typeFl=(document.getElementById('rptTypeFilter')||{value:'all'}).value;var fDB=empDB.filter(function(e){var sv=siteLabel(e),cw=isCW(e);if(siteFl!=='all'&&sv!==siteFl)return false;if(typeFl==='emp'&&cw)return false;if(typeFl==='cw'&&!cw)return false;return true;});var ciSet={},coutSet={};Object.values(ciLog).forEach(function(r){if(r.empId){ciSet[r.empId]=r;if(r.status==='OUT')coutSet[r.empId]=r;}});var hdr='"#","Department","HC Total","Check-IN","Check-OUT","คงเหลือ","Rate%"';var deptMap={};fDB.forEach(function(e){var d=e.dept||'(ไม่ระบุ)';if(!deptMap[d])deptMap[d]={total:0,done:0,cout:0};deptMap[d].total++;if(ciSet[e.empId])deptMap[d].done++;if(coutSet[e.empId])deptMap[d].cout++;});var rows=Object.entries(deptMap).sort(function(a,b){return b[1].total-a[1].total;}).map(function(kv,i){var d=kv[0],g=kv[1];var pct=g.total>0?Math.round(g.done/g.total*100):0;return[i+1,'"'+escCSV(d)+'"',g.total,g.done,g.cout,g.total-g.done,pct+'%'].join(',');});dlCSV(hdr+'\n'+rows.join('\n'),'report_summary_dept_'+today()+'.csv');showToast('ok','Export สำเร็จ');}
 function printReport(){renderReport();setTimeout(function(){window.print();},600);}
 
 /* ══════════════════════════════════════════════════
-   DATE-TIME FILTER — v1.8.9 (NEW)
-   ฟังก์ชันใหม่ทั้งหมด — ไม่แตะโค้ดเดิม
+   DATE-TIME FILTER — เหมือน v1.9.0 ทุกประการ
 ══════════════════════════════════════════════════ */
-function dtfSetQuick(mode){
-  var now=new Date();
-  var pad=function(n){return String(n).padStart(2,'0');};
-  var fmt=function(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
-  var fd=document.getElementById('dtf-from-date'),td=document.getElementById('dtf-to-date');
-  var ft=document.getElementById('dtf-from-time'),tt=document.getElementById('dtf-to-time');
-  /* reset active state */
-  ['dtfq-today','dtfq-yesterday','dtfq-week','dtfq-month'].forEach(function(id){
-    var el=document.getElementById(id);if(el)el.classList.remove('active');
-  });
-  var activeId='dtfq-'+mode;
-  var el=document.getElementById(activeId);if(el)el.classList.add('active');
-  if(mode==='today'){var s=fmt(now);fd.value=s;td.value=s;ft.value='00:00';tt.value='23:59';}
-  else if(mode==='yesterday'){var y=new Date(now);y.setDate(y.getDate()-1);var s2=fmt(y);fd.value=s2;td.value=s2;ft.value='00:00';tt.value='23:59';}
-  else if(mode==='week'){var w=new Date(now);w.setDate(w.getDate()-6);fd.value=fmt(w);td.value=fmt(now);ft.value='00:00';tt.value='23:59';}
-  else if(mode==='month'){var m=new Date(now);m.setDate(m.getDate()-29);fd.value=fmt(m);td.value=fmt(now);ft.value='00:00';tt.value='23:59';}
-  dtfApply();
-}
-
-function dtfGetFilteredRows(){
-  var fromDate=document.getElementById('dtf-from-date').value;
-  var toDate=document.getElementById('dtf-to-date').value;
-  var fromTime=document.getElementById('dtf-from-time').value||'00:00';
-  var toTime=document.getElementById('dtf-to-time').value||'23:59';
-  var site=document.getElementById('dtf-site').value;
-  var type=document.getElementById('dtf-type').value;
-  var status=document.getElementById('dtf-status').value;
-  var rows=Object.values(ciLog);
-  /* กรองวันที่+เวลา */
-  if(fromDate||toDate){
-    var fromDt=fromDate?new Date(fromDate+'T'+fromTime+':00'):null;
-    var toDt=toDate?new Date(toDate+'T'+toTime+':59'):null;
-    rows=rows.filter(function(r){
-      if(!r.ts)return false;
-      var d=new Date(r.ts);
-      if(fromDt&&d<fromDt)return false;
-      if(toDt&&d>toDt)return false;
-      return true;
-    });
-  }
-  /* กรอง Site */
-  if(site!=='all'){
-    rows=rows.filter(function(r){
-      var emp=_empById[String(r.empId||'').toUpperCase()];
-      var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});
-      return sv===site;
-    });
-  }
-  /* กรอง Type */
-  if(type!=='all'){
-    rows=rows.filter(function(r){
-      var emp=_empById[String(r.empId||'').toUpperCase()];
-      var cw=emp&&isCW(emp);
-      if(type==='emp')return!cw;
-      if(type==='cw')return cw;
-      return true;
-    });
-  }
-  /* กรอง Status */
-  if(status!=='all'){rows=rows.filter(function(r){return(r.status||'IN')===status;});}
-  rows.sort(function(a,b){return(b.ts||0)-(a.ts||0);});
-  return rows;
-}
-
-function dtfApply(){
-  var rows=dtfGetFilteredRows();
-  var fromDate=document.getElementById('dtf-from-date').value;
-  var toDate=document.getElementById('dtf-to-date').value;
-  var fromTime=document.getElementById('dtf-from-time').value||'00:00';
-  var toTime=document.getElementById('dtf-to-time').value||'23:59';
-  var total=rows.length;
-  var inCount=rows.filter(function(r){return(r.status||'IN')==='IN';}).length;
-  var outCount=rows.filter(function(r){return r.status==='OUT';}).length;
-  var prbCount=0,bpi034Count=0,bpi035Count=0,cwCount=0;
-  rows.forEach(function(r){
-    var emp=_empById[String(r.empId||'').toUpperCase()];
-    var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});
-    var cw=emp&&isCW(emp);
-    if(cw)cwCount++;
-    else if(sv==='PRB')prbCount++;
-    else if(sv==='BPI034')bpi034Count++;
-    else if(sv==='BPI035')bpi035Count++;
-  });
-  /* อัพเดท KPI */
-  var ids=['dtf-kpi-total','dtf-kpi-in','dtf-kpi-out','dtf-kpi-prb','dtf-kpi-bpi034','dtf-kpi-bpi035','dtf-kpi-cw'];
-  var vals=[total,inCount,outCount,prbCount,bpi034Count,bpi035Count,cwCount];
-  ids.forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=vals[i].toLocaleString();});
-  /* Progress */
-  var prgRow=document.getElementById('dtf-progress-row');
-  if(prgRow)prgRow.style.display='';
-  var inPct=total>0?Math.round(inCount/total*100):0;
-  var outPct=total>0?Math.round(outCount/total*100):0;
-  var barIn=document.getElementById('dtf-bar-in'),barOut=document.getElementById('dtf-bar-out');
-  var barInPct=document.getElementById('dtf-bar-in-pct'),barOutPct=document.getElementById('dtf-bar-out-pct');
-  if(barIn)barIn.style.width=inPct+'%';
-  if(barOut)barOut.style.width=outPct+'%';
-  if(barInPct)barInPct.textContent=inPct+'% ('+inCount+' คน)';
-  if(barOutPct)barOutPct.textContent=outPct+'% ('+outCount+' คน)';
-  /* Site breakdown */
-  var bdEl=document.getElementById('dtf-site-breakdown');
-  if(bdEl){
-    bdEl.innerHTML=[
-      {label:'PRB WD',count:prbCount,color:'#2563eb'},
-      {label:'BPI HDD',count:bpi034Count,color:'#7c3aed'},
-      {label:'BPI THO',count:bpi035Count,color:'#a21caf'},
-      {label:'CW',count:cwCount,color:'#ea580c'}
-    ].map(function(s){
-      var pct=total>0?Math.round(s.count/total*100):0;
-      return'<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">'
-        +'<span style="font-size:10px;font-weight:700;color:'+s.color+';width:55px;flex-shrink:0">'+s.label+'</span>'
-        +'<div style="flex:1;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+s.color+';border-radius:3px;transition:width .5s"></div></div>'
-        +'<span style="font-size:10px;font-weight:700;color:'+s.color+';min-width:38px;text-align:right">'+s.count.toLocaleString()+'</span>'
-        +'</div>';
-    }).join('');
-  }
-  /* Sub label */
-  var sub=document.getElementById('dtf-sub');
-  if(sub){
-    var parts=[];
-    if(fromDate)parts.push(fromDate+' '+fromTime);
-    if(toDate)parts.push(toDate+' '+toTime);
-    sub.textContent=(parts.length?parts.join(' — '):'ทุกช่วงเวลา')+' | พบ '+total.toLocaleString()+' รายการ';
-  }
-  /* ตาราง */
-  var noResult=document.getElementById('dtf-no-result');
-  var tbl=document.getElementById('dtf-table');
-  var tbody=document.getElementById('dtf-tbody');
-  if(!rows.length){
-    noResult.innerHTML='<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div style="font-size:13px">ไม่พบข้อมูลในช่วงที่เลือก</div>';
-    noResult.style.display='flex';tbl.style.display='none';return;
-  }
-  noResult.style.display='none';tbl.style.display='';
-  tbody.innerHTML=rows.slice(0,1000).map(function(r,i){
-    var emp=_empById[String(r.empId||'').toUpperCase()]||{};
-    var sv=emp.empId?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});
-    var cw=emp.empId&&isCW(emp);
-    var sd=siteDisp(sv);
-    var status=r.status||'IN';
-    var sitCol=sv==='PRB'?'#2563eb':sv==='BPI035'?'#a21caf':'#7c3aed';
-    var wt=cw
-      ?'<span style="background:#fff8f0;color:#ea580c;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">CW</span>'
-      :'<span style="background:#eff6ff;color:#2563eb;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">EMP</span>';
-    var st=status==='OUT'?'<span class="tout">Done</span>':'<span class="ti">Pending</span>';
-    return'<tr>'
-      +'<td style="color:#94a3b8;text-align:center;font-size:11px">'+(i+1)+'</td>'
-      +'<td style="white-space:nowrap;color:#16a34a;font-family:monospace;font-size:11px">'+(r.timeIn||'–')+'</td>'
-      +'<td style="white-space:nowrap;color:#2563eb;font-family:monospace;font-size:11px">'+(r.timeOut||'—')+'</td>'
-      +'<td style="font-family:monospace;color:#2563eb;font-weight:700;font-size:11px">'+(r.empId||'–')+'</td>'
-      +'<td style="font-weight:600;font-size:12px">'+(r.name||emp.name||'–')+'</td>'
-      +'<td><span class="tp" style="background:'+sitCol+'18;color:'+sitCol+'">'+escH(sd)+'</span></td>'
-      +'<td style="font-size:11px">'+(r.dept||emp.dept||'–')+'</td>'
-      +'<td style="font-size:11px">'+(r.jf||emp.jf||'–')+'</td>'
-      +'<td>'+wt+'</td>'
-      +'<td>'+st+'</td>'
-      +'</tr>';
-  }).join('');
-}
-
-function dtfClear(){
-  ['dtf-from-date','dtf-to-date'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  var ft=document.getElementById('dtf-from-time');if(ft)ft.value='00:00';
-  var tt=document.getElementById('dtf-to-time');if(tt)tt.value='23:59';
-  ['dtf-site','dtf-type','dtf-status'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='all';});
-  ['dtfq-today','dtfq-yesterday','dtfq-week','dtfq-month'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
-  ['dtf-kpi-total','dtf-kpi-in','dtf-kpi-out','dtf-kpi-prb','dtf-kpi-bpi034','dtf-kpi-bpi035','dtf-kpi-cw'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='0';});
-  var barIn=document.getElementById('dtf-bar-in'),barOut=document.getElementById('dtf-bar-out');
-  if(barIn)barIn.style.width='0%';if(barOut)barOut.style.width='0%';
-  var barInPct=document.getElementById('dtf-bar-in-pct'),barOutPct=document.getElementById('dtf-bar-out-pct');
-  if(barInPct)barInPct.textContent='0%';if(barOutPct)barOutPct.textContent='0%';
-  var bdEl=document.getElementById('dtf-site-breakdown');if(bdEl)bdEl.innerHTML='';
-  var prgRow=document.getElementById('dtf-progress-row');if(prgRow)prgRow.style.display='none';
-  document.getElementById('dtf-no-result').style.display='flex';
-  document.getElementById('dtf-table').style.display='none';
-  var sub=document.getElementById('dtf-sub');
-  if(sub)sub.textContent='เลือกช่วงวันที่และเวลาเพื่อดูสถานะ Check-IN/OUT';
-}
-
-function dtfExportCSV(){
-  var rows=dtfGetFilteredRows();
-  if(!rows.length){showToast('warn','ไม่มีข้อมูลให้ Export');return;}
-  var hdr='"#","Check-IN Time","Check-OUT Time","Employee ID","Employee Name","Site","Department","Job Family","Worker Type","Status"';
-  var body=rows.map(function(r,i){
-    var emp=_empById[String(r.empId||'').toUpperCase()]||{};
-    var sv=emp.empId?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});
-    var cw=emp.empId&&isCW(emp);
-    return[i+1,'"'+escCSV(r.timeIn||'')+'"','"'+escCSV(r.timeOut||'')+'"','"'+escCSV(r.empId||'')+'"','"'+escCSV(r.name||emp.name||'')+'"','"'+escCSV(siteDisp(sv))+'"','"'+escCSV(r.dept||emp.dept||'')+'"','"'+escCSV(r.jf||emp.jf||'')+'"','"'+(cw?'CW':'Employee')+'"','"'+(r.status==='OUT'?'Done':'Pending')+'"'].join(',');
-  }).join('\n');
-  var fromDate=document.getElementById('dtf-from-date').value||'all';
-  var toDate=document.getElementById('dtf-to-date').value||'all';
-  dlCSV(hdr+'\n'+body,'dtfilter_'+fromDate+'_'+toDate+'.csv');
-  showToast('ok','Export '+rows.length+' รายการสำเร็จ');
-}
+function dtfSetQuick(mode){var now=new Date();var pad=function(n){return String(n).padStart(2,'0');};var fmt=function(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};var fd=document.getElementById('dtf-from-date'),td=document.getElementById('dtf-to-date');var ft=document.getElementById('dtf-from-time'),tt=document.getElementById('dtf-to-time');['dtfq-today','dtfq-yesterday','dtfq-week','dtfq-month'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});var activeId='dtfq-'+mode;var el=document.getElementById(activeId);if(el)el.classList.add('active');if(mode==='today'){var s=fmt(now);fd.value=s;td.value=s;ft.value='00:00';tt.value='23:59';}else if(mode==='yesterday'){var y=new Date(now);y.setDate(y.getDate()-1);var s2=fmt(y);fd.value=s2;td.value=s2;ft.value='00:00';tt.value='23:59';}else if(mode==='week'){var w=new Date(now);w.setDate(w.getDate()-6);fd.value=fmt(w);td.value=fmt(now);ft.value='00:00';tt.value='23:59';}else if(mode==='month'){var m=new Date(now);m.setDate(m.getDate()-29);fd.value=fmt(m);td.value=fmt(now);ft.value='00:00';tt.value='23:59';}dtfApply();}
+function dtfGetFilteredRows(){var fromDate=document.getElementById('dtf-from-date').value;var toDate=document.getElementById('dtf-to-date').value;var fromTime=document.getElementById('dtf-from-time').value||'00:00';var toTime=document.getElementById('dtf-to-time').value||'23:59';var site=document.getElementById('dtf-site').value;var type=document.getElementById('dtf-type').value;var status=document.getElementById('dtf-status').value;var rows=Object.values(ciLog);if(fromDate||toDate){var fromDt=fromDate?new Date(fromDate+'T'+fromTime+':00'):null;var toDt=toDate?new Date(toDate+'T'+toTime+':59'):null;rows=rows.filter(function(r){if(!r.ts)return false;var d=new Date(r.ts);if(fromDt&&d<fromDt)return false;if(toDt&&d>toDt)return false;return true;});}if(site!=='all'){rows=rows.filter(function(r){var emp=_empById[String(r.empId||'').toUpperCase()];var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});return sv===site;});}if(type!=='all'){rows=rows.filter(function(r){var emp=_empById[String(r.empId||'').toUpperCase()];var cw=emp&&isCW(emp);if(type==='emp')return!cw;if(type==='cw')return cw;return true;});}if(status!=='all'){rows=rows.filter(function(r){return(r.status||'IN')===status;});}rows.sort(function(a,b){return(b.ts||0)-(a.ts||0);});return rows;}
+function dtfApply(){var rows=dtfGetFilteredRows();var fromDate=document.getElementById('dtf-from-date').value;var toDate=document.getElementById('dtf-to-date').value;var fromTime=document.getElementById('dtf-from-time').value||'00:00';var toTime=document.getElementById('dtf-to-time').value||'23:59';var total=rows.length;var inCount=rows.filter(function(r){return(r.status||'IN')==='IN';}).length;var outCount=rows.filter(function(r){return r.status==='OUT';}).length;var prbCount=0,bpi034Count=0,bpi035Count=0,cwCount=0;rows.forEach(function(r){var emp=_empById[String(r.empId||'').toUpperCase()];var sv=emp?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});var cw=emp&&isCW(emp);if(cw)cwCount++;else if(sv==='PRB')prbCount++;else if(sv==='BPI034')bpi034Count++;else if(sv==='BPI035')bpi035Count++;});var ids=['dtf-kpi-total','dtf-kpi-in','dtf-kpi-out','dtf-kpi-prb','dtf-kpi-bpi034','dtf-kpi-bpi035','dtf-kpi-cw'];var vals=[total,inCount,outCount,prbCount,bpi034Count,bpi035Count,cwCount];ids.forEach(function(id,i){var el=document.getElementById(id);if(el)el.textContent=vals[i].toLocaleString();});var prgRow=document.getElementById('dtf-progress-row');if(prgRow)prgRow.style.display='';var inPct=total>0?Math.round(inCount/total*100):0;var outPct=total>0?Math.round(outCount/total*100):0;var barIn=document.getElementById('dtf-bar-in'),barOut=document.getElementById('dtf-bar-out');var barInPct=document.getElementById('dtf-bar-in-pct'),barOutPct=document.getElementById('dtf-bar-out-pct');if(barIn)barIn.style.width=inPct+'%';if(barOut)barOut.style.width=outPct+'%';if(barInPct)barInPct.textContent=inPct+'% ('+inCount+' คน)';if(barOutPct)barOutPct.textContent=outPct+'% ('+outCount+' คน)';var bdEl=document.getElementById('dtf-site-breakdown');if(bdEl){bdEl.innerHTML=[{label:'PRB WD',count:prbCount,color:'#2563eb'},{label:'BPI HDD',count:bpi034Count,color:'#7c3aed'},{label:'BPI THO',count:bpi035Count,color:'#a21caf'},{label:'CW',count:cwCount,color:'#ea580c'}].map(function(s){var pct=total>0?Math.round(s.count/total*100):0;return'<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span style="font-size:10px;font-weight:700;color:'+s.color+';width:55px;flex-shrink:0">'+s.label+'</span><div style="flex:1;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+s.color+';border-radius:3px;transition:width .5s"></div></div><span style="font-size:10px;font-weight:700;color:'+s.color+';min-width:38px;text-align:right">'+s.count.toLocaleString()+'</span></div>';}).join('');}var sub=document.getElementById('dtf-sub');if(sub){var parts=[];if(fromDate)parts.push(fromDate+' '+fromTime);if(toDate)parts.push(toDate+' '+toTime);sub.textContent=(parts.length?parts.join(' — '):'ทุกช่วงเวลา')+' | พบ '+total.toLocaleString()+' รายการ';}var noResult=document.getElementById('dtf-no-result');var tbl=document.getElementById('dtf-table');var tbody=document.getElementById('dtf-tbody');if(!rows.length){noResult.innerHTML='<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div style="font-size:13px">ไม่พบข้อมูลในช่วงที่เลือก</div>';noResult.style.display='flex';tbl.style.display='none';return;}noResult.style.display='none';tbl.style.display='';tbody.innerHTML=rows.slice(0,1000).map(function(r,i){var emp=_empById[String(r.empId||'').toUpperCase()]||{};var sv=emp.empId?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});var cw=emp.empId&&isCW(emp);var sd=siteDisp(sv);var status=r.status||'IN';var sitCol=sv==='PRB'?'#2563eb':sv==='BPI035'?'#a21caf':'#7c3aed';var wt=cw?'<span style="background:#fff8f0;color:#ea580c;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">CW</span>':'<span style="background:#eff6ff;color:#2563eb;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px">EMP</span>';var st=status==='OUT'?'<span class="tout">Done</span>':'<span class="ti">Pending</span>';return'<tr><td style="color:#94a3b8;text-align:center;font-size:11px">'+(i+1)+'</td><td style="white-space:nowrap;color:#16a34a;font-family:monospace;font-size:11px">'+(r.timeIn||'–')+'</td><td style="white-space:nowrap;color:#2563eb;font-family:monospace;font-size:11px">'+(r.timeOut||'—')+'</td><td style="font-family:monospace;color:#2563eb;font-weight:700;font-size:11px">'+(r.empId||'–')+'</td><td style="font-weight:600;font-size:12px">'+(r.name||emp.name||'–')+'</td><td><span class="tp" style="background:'+sitCol+'18;color:'+sitCol+'">'+escH(sd)+'</span></td><td style="font-size:11px">'+(r.dept||emp.dept||'–')+'</td><td style="font-size:11px">'+(r.jf||emp.jf||'–')+'</td><td>'+wt+'</td><td>'+st+'</td></tr>';}).join('');}
+function dtfClear(){['dtf-from-date','dtf-to-date'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});var ft=document.getElementById('dtf-from-time');if(ft)ft.value='00:00';var tt=document.getElementById('dtf-to-time');if(tt)tt.value='23:59';['dtf-site','dtf-type','dtf-status'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='all';});['dtfq-today','dtfq-yesterday','dtfq-week','dtfq-month'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});['dtf-kpi-total','dtf-kpi-in','dtf-kpi-out','dtf-kpi-prb','dtf-kpi-bpi034','dtf-kpi-bpi035','dtf-kpi-cw'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='0';});var barIn=document.getElementById('dtf-bar-in'),barOut=document.getElementById('dtf-bar-out');if(barIn)barIn.style.width='0%';if(barOut)barOut.style.width='0%';var barInPct=document.getElementById('dtf-bar-in-pct'),barOutPct=document.getElementById('dtf-bar-out-pct');if(barInPct)barInPct.textContent='0%';if(barOutPct)barOutPct.textContent='0%';var bdEl=document.getElementById('dtf-site-breakdown');if(bdEl)bdEl.innerHTML='';var prgRow=document.getElementById('dtf-progress-row');if(prgRow)prgRow.style.display='none';document.getElementById('dtf-no-result').style.display='flex';document.getElementById('dtf-table').style.display='none';var sub=document.getElementById('dtf-sub');if(sub)sub.textContent='เลือกช่วงวันที่และเวลาเพื่อดูสถานะ Check-IN/OUT';}
+function dtfExportCSV(){var rows=dtfGetFilteredRows();if(!rows.length){showToast('warn','ไม่มีข้อมูลให้ Export');return;}var hdr='"#","Check-IN Time","Check-OUT Time","Employee ID","Employee Name","Site","Department","Job Family","Worker Type","Status"';var body=rows.map(function(r,i){var emp=_empById[String(r.empId||'').toUpperCase()]||{};var sv=emp.empId?siteLabel(emp):siteLabel({site:r.site||'',loc:r.loc||''});var cw=emp.empId&&isCW(emp);return[i+1,'"'+escCSV(r.timeIn||'')+'"','"'+escCSV(r.timeOut||'')+'"','"'+escCSV(r.empId||'')+'"','"'+escCSV(r.name||emp.name||'')+'"','"'+escCSV(siteDisp(sv))+'"','"'+escCSV(r.dept||emp.dept||'')+'"','"'+escCSV(r.jf||emp.jf||'')+'"','"'+(cw?'CW':'Employee')+'"','"'+(r.status==='OUT'?'Done':'Pending')+'"'].join(',');}).join('\n');var fromDate=document.getElementById('dtf-from-date').value||'all';var toDate=document.getElementById('dtf-to-date').value||'all';dlCSV(hdr+'\n'+body,'dtfilter_'+fromDate+'_'+toDate+'.csv');showToast('ok','Export '+rows.length+' รายการสำเร็จ');}
 </script>
 </body>
 </html>
